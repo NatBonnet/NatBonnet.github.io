@@ -1,8 +1,9 @@
 ---
 title: "Nathalie Bonnet"
 image: images/Nathalie Bonnet_MEDS Headshots 2026_0025.jpg
+toc: false
 about:
-  template: broadside
+  template: solana
   image-shape: round
   image-width: 17cm
   links: 
