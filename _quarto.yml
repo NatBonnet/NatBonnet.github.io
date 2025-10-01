@@ -3,20 +3,23 @@ project:
   output-dir: docs
 
 website:
-  title: "NatBonnet.github.io"
+  title: "Nathalie Bonnet"
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
-      - about.qmd
+      # - about.qmd
+      # - href: media.qmd
+      #   text: Media
 
 format:
   html:
-    theme:
+    theme: flatly
       - cosmo
       - brand
     css: styles.css
     toc: true
+    page-layout: full
 
 
 

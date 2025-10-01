@@ -1,4 +1,23 @@
 ---
-title: "NatBonnet.github.io"
+title: "Nathalie Bonnet"
+image: images/Nathalie Bonnet_MEDS Headshots 2026_0025.jpg
+about:
+  template: broadside
+  image-shape: round
+  image-width: 17cm
+  links: 
+    - text: Linkedin
+      href: https://www.linkedin.com/in/nathalie-bonnet-78a5a02b5/
+      target: _blank
+    - text: GitHub
+      href: https://github.com/NatBonnet
+      target: _blank
+    - text: Email
+      href: mailto:nhbonnet@ucsb.edu
+  
 ---
-Hi this is Nathalie
+
+
+---
+
+Nathalie is an environmental data scientist-in-training at UCSB who feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, she’s usually chasing sunshine on a trail, bike, or surfboard.
