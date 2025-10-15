@@ -2,4 +2,38 @@
 title: "About"
 ---
 
-About this site
+## What I do for work
+
+Here's where I describe what I do professionally
+
+## What I do for fun
+
+Nothing! When I am not working my creator overlord must power me off and plug me in in the closet!
+
+<!-- <h1>This is an h1 element</h1> -->
+
+<!-- <h1 class="title">This is an h1 element with the title class</h1> -->
+
+<!-- <p class="orange-text>this paragraph is orange</p> -->
+
+<!-- <p class="center-text">This text is centered</p> -->
+
+<!-- <p class="center-text orange-text">This text is both centered and orange</p> -->
+
+<!-- --- -->
+
+<!-- Here's where I am describing [something fun]{.orange-text} that I enjoy doing -->
+
+<!-- [Here's a full line]{.orange-text} -->
+
+<!-- ::: {.orange-text} -->
+
+<!-- Here's another example of applying styling -->
+
+<!-- ::: -->
+
+
+<!-- ::: {.center-text} -->
+<!-- This is centered -->
+<!-- ::: -->
+<!-- This is centered -->

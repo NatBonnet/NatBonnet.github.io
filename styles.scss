@@ -1,0 +1,22 @@
+/*-- scss:defaults --*/
+
+// import google fonts
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+// fonts
+
+//$Merriweather: "Merriweather", serif;
+
+//colors
+$saltblue: #d3dad7ff;
+$eggplant: #413d49c5;
+$terracota: #945140ff;
+$marine: #005477ff;
+
+// define quarto variables
+$body-bg: $saltblue;
+$body-color: $marine;
+$navbar-bg: $eggplant;
+$navbar-fg: $saltblue;
+$link-color: $terracota;
+
