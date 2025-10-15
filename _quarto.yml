@@ -4,22 +4,28 @@ project:
 
 website:
   title: "Nathalie Bonnet"
+  favicon: images/favicon.png
   navbar:
+    title: false
+    logo: images/favicon.png
+    logo-alt: "A bonnet with a bee inside"
     right:
       - href: index.qmd
         text: Home
       - about.qmd
       - href: media.qmd
         text: Media
-
+      - icon: github
+        href: https://github.com/NatBonnet/NatBonnet.github.io
+  page-footer: 
+    left: Copyright 2025, Nathalie Bonnet
+   
 format:
   html:
-    theme: flatly
-      - cosmo
-      - brand
-    css: styles.css
+    theme: styles.scss
     toc: true
     page-layout: full
+    
 
 
 
