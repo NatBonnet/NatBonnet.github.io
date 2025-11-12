@@ -11,6 +11,7 @@ website:
       - about.qmd
       - href: media.qmd
         text: Media
+      - posts.qmd
 
 format:
   html:

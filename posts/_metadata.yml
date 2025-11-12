@@ -1,0 +1,12 @@
+# Any options specified here will apply to all posts in the posts folder
+author: 
+  - name: Nathalie Bonnet
+    url: https://natbonnet.github.io/
+    affiliation: UCSB Bren MEDS 
+    affilitation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science/
+    orcid: 0009-0008-2146-4871
+    orcid-url: https://orcid.org/0009-0008-2146-4871/
+    
+title-block-banner: true
+
+freeze: auto

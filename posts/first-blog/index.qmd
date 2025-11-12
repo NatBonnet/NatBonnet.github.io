@@ -1,0 +1,22 @@
+---
+title: "First blog post"
+description: "a short description of the blog post"
+date: 2025-11-12
+categories: [MEDS, Research, R, data-viz]
+image: snow_plover.jpg
+citation:
+  url: https://natbonnet.github.io/posts/first-blog
+draft: true
+draft-mode: linked
+bibliography: references.bib
+---
+
+This is where the the body lives! I'm going to add a footnote here[^1] Here is an inline footnote[^2]
+
+[^1]: Here is some additional context that might be helpful
+
+[^2]: here's my inline note
+
+Citing myself here[@bonnet2025]
+
+Citing a paper using DOI: [@heilferty2025]
