@@ -7,13 +7,15 @@ about:
   image-shape: round
   image-width: 17cm
   links: 
-    - text: Linkedin
+    - icon: linkedin
       href: https://www.linkedin.com/in/nathalie-bonnet-78a5a02b5/
       target: _blank
     - text: GitHub
+      icon: github-alt
       href: https://github.com/NatBonnet
       target: _blank
     - text: Email
+      icon: envelope
       href: mailto:nhbonnet@ucsb.edu
   
 ---
