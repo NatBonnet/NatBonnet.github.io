@@ -3,7 +3,7 @@ title: "First blog post"
 description: "a short description of the blog post"
 date: 2025-11-12
 categories: [MEDS, Research, R, data-viz]
-image: snow_plover.jpg
+image: snowy_plover.jpg
 citation:
   url: https://natbonnet.github.io/posts/first-blog
 draft: true

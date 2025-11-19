@@ -1,8 +1,5 @@
 import * as tabsets from "./tabsets/tabsets.js";
-<<<<<<< HEAD
 import * as axe from "./axe/axe-check.js";
-=======
->>>>>>> e7409806f7195b1c0b86997dbb8f9cc50baec3fc
 
 const sectionChanged = new CustomEvent("quarto-sectionChanged", {
   detail: {},
@@ -830,10 +827,7 @@ window.document.addEventListener("DOMContentLoaded", function (_event) {
 });
 
 tabsets.init();
-<<<<<<< HEAD
 axe.init();
-=======
->>>>>>> e7409806f7195b1c0b86997dbb8f9cc50baec3fc
 
 function throttle(func, wait) {
   let waiting = false;
