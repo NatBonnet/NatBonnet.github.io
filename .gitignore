@@ -8,3 +8,6 @@
 /.quarto/
 
 **/*.quarto_ipynb
+
+
+/posts/la_fires/data/

@@ -8,7 +8,6 @@ website:
   navbar:
     title: false
     logo: images/favicon_mask.png
-    logo-alt: "A bonnet with a b inside"
     right:
       - href: index.qmd
         text: Home

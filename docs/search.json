@@ -1,21 +1,14 @@
 [
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Nathalie Bonnet",
     "section": "",
-    "text": "No matching items"
+    "text": "Nathalie is an environmental data scientist-in-training at UCSB who feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, she’s usually chasing sunshine on a trail, bike, or surfboard."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Here’s where I describe what I do professionally"
-  },
-  {
-    "objectID": "about.html#what-i-do-for-work",
-    "href": "about.html#what-i-do-for-work",
     "title": "About",
     "section": "",
     "text": "Here’s where I describe what I do professionally"
@@ -28,10 +21,17 @@
     "text": "What I do for fun\nNothing! When I am not working my creator overlord must power me off and plug me in in the closet!"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Nathalie Bonnet",
+    "objectID": "posts/la_fires/la_fires.html",
+    "href": "posts/la_fires/la_fires.html",
+    "title": "Visualizing the 2025 California Wildfires",
     "section": "",
-    "text": "Nathalie is an environmental data scientist-in-training at UCSB who feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, she’s usually chasing sunshine on a trail, bike, or surfboard."
+    "text": "Palisade fire caption\n\n\n\n\nCode\n# Import necessary libraries\nimport os\nimport numpy as np\nimport pandas as pd\nimport geopandas as gpd\nimport xarray as xr\nimport rioxarray as rio\nimport matplotlib.pyplot as plt\nimport contextily as ctx\nfrom matplotlib_scalebar.scalebar import ScaleBar\n\n\n\n\nCode\n# Read in datasets\nlandsat = xr.open_dataset('data/landsat8-2025-02-23-palisades-eaton.nc', engine='netcdf4')\n\nfp = os.path.join('data', 'California_Historic_Fire_Perimeters_-247493000743518952', 'California_Fire_Perimeters_(1950+).shp')\nfires = gpd.read_file(fp)\n\nfp= os.path.join('data', 'EJI_2024_United_States', 'EJI_2024_United_States.gdb')\neji = gpd.read_file(fp)\n\n\n\n\nCode\nfires.columns = fires.columns.str.lower()\npalisade = fires[(fires['fire_name'] == 'PALISADES') & (fires['year_'] == 2025)]\neaton = fires[(fires['fire_name'] == 'EATON') & (fires['year_'] == 2025)]\n\n\n\n\nCode\neji = eji.to_crs(crs = fires.crs)\n\n\n\n\nCode\n# Spatial join\npalisade_soc = gpd.sjoin(left_df = eji, \n                        right_df = palisade,\nhow = 'inner')\n\n# Create geodf for the Eaton fire\n# Spatial join\neaton_soc = gpd.sjoin(eji, eaton,\nhow = 'inner')\n\n# Clip the census tracts overlapping palisades to the boundary of the fire\npalisade_clip = gpd.clip(eji, palisade)\n\neaton_clip = gpd.clip(eji, eaton)\n\n\n\n\nCode\nfig, ax = plt.subplots(1, 1, figsize=(14, 12))\n\npalisade.plot(ax=ax, color = \"red\", alpha = 0.4)\n\neaton.plot(ax=ax, color = \"blue\", alpha = 0.4)\n# Add basemap using contextily\nctx.add_basemap(ax, source=ctx.providers.OpenStreetMap.Mapnik, crs = palisade.crs)\n\nax.set_title(\"Palisades and Eaton Fires in LA\")\n\nax.axis('off')\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nCode\nfig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 10))\n\n# UPDATE WITH YOU EJI VARIABLE FROM STEP 1\neji_variable = 'E_POV200'\n\n# Find common min/max for legend range\nvmin = min(palisade_clip[eji_variable].min(), eaton_clip[eji_variable].min())\nvmax = max(palisade_clip[eji_variable].max(), eaton_clip[eji_variable].max())\n\n# Plot census tracts within Palisades perimeter\npalisade_clip.plot(\n    column= eji_variable,\n    vmin=vmin, vmax=vmax,\n    legend=False,\n    ax=ax1,\n)\nax1.set_title('Palisades Fire Census Overlap')\nax1.axis('off')\n\n# Plot census tracts within Eaton perimeter\neaton_clip.plot(\n    column=eji_variable,\n    vmin=vmin, vmax=vmax,\n    legend=False,\n    ax=ax2,\n)\nax2.set_title('Eaton Fire Census Overlap')\nax2.axis('off')\n\n# Add overall title\nfig.suptitle('Percent of Population in Poverty - Fire Areas Comparison')\n\n# Add shared colorbar at the bottom\nsm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=vmin, vmax=vmax))\ncbar_ax = fig.add_axes([0.25, 0.08, 0.5, 0.02])  # [left, bottom, width, height]\ncbar = fig.colorbar(sm, cax=cbar_ax, orientation='horizontal')\ncbar.set_label('PCTPOV')\n\nplt.show()\n\n\n\n\n\n\n\nCode\n# Find CRS of spatial reference in landsat data itself\ncrs = landsat.spatial_ref.crs_wkt\n\n# Set the crs of landsat equal to that of the spatial reference\nlandsat.rio.write_crs(crs, inplace= True)\n\n# Create numpy array with true color bands \ntrue_col = landsat[[\"red\", \"green\", \"blue\"]].to_array()\n\n# Fill missing values in landsat data\nlandsat = landsat.fillna(0)\n\n# Rerender plot without warnings\nlandsat[[\"red\", \"green\", \"blue\"]].to_array().plot.imshow(robust = True)\n\n\n<matplotlib.image.AxesImage at 0x7f5488a9ac10>\n\n\n\n\n\n\n\nCode\n# Switch band order around to create false color image\nplt.show(landsat[[\"swir22\", \"nir08\", \"red\"]].to_array().plot.imshow(robust = True))\n\n\n\n\n\n\n\nCode\n# Filter for Palisades fire data from 2025\npalisade_perimeter = fires[(fires['fire_name'] == 'PALISADES') & (fires['year_'] == 2025)]\n\n# Filter for Eaton fire 2025\neaton_perimeter = fires[(fires['fire_name'] == 'EATON') & (fires['year_'] == 2025)]\n\n# Change CRS of fires data to match that of landsat data\npalisade_perimeter = palisade_perimeter.to_crs(crs = 'EPSG:32611')\neaton_perimeter = eaton_perimeter.to_crs(crs = 'EPSG:32611')\n\n# Initialize plot\nfig, ax = plt.subplots(figsize = (10, 10))\n\n# Underlay landsat false color image plot\nlandsat[[\"swir22\", \"nir08\", \"red\"]].to_array().plot.imshow(ax=ax, \n                                                           robust = True)\n\n# Add Palisade fire area onto plot\npalisade_perimeter.plot(ax=ax, color = 'red', alpha = 0.5)\n\n# Add Eaton fire area onto plot\neaton_perimeter.plot(ax=ax, color = \"red\", alpha = 0.5)\n\n# Add informative title\nplt.title(\"False Color Map of the Locations of January 2025 Los Angeles County Fires\")\n\n# Add a scalebar with matplotlib ScaleBar function\nscalebar = ScaleBar(dx = 1, # Specify resolution of cell being measured\n                     units = 'm', # Cells are 1m res\n                     location = \"lower left\") # Add to lower left of plot\nax.add_artist(scalebar)\n\n# Add compass arrow by initializing area on plot and size\nx, y, arrow_length = 0.95, 0.2, 0.15\n\n# Add annotation with text and arrow/text\nax.annotate('N', xy=(x, y), xytext=(x, y-arrow_length),\n            arrowprops=dict(facecolor='black', width=2, headwidth=10),\n            ha='center', va='center', fontsize=15,\n            xycoords=ax.transAxes)\n\n# Add Palisade fire annotation\nfig.text(x = 0.25, \n         y = 0.52, \n         s = \"Palisades fire\", \n         backgroundcolor = 'white')\n\n# Add Eaton fire annotation\nfig.text(x = 0.7, \n         y = 0.63, \n         s = \"Eaton fire\", \n         backgroundcolor = 'white')\n\n# Add label to downtown Los Angeles for visual context\nfig.text(x = 0.56, \n         y = 0.4, \n         s = \"Los Angeles\", \n         color = 'white', \n         fontsize = 'large')\n\n# Remove axes ticks\nax.set_xticks([])  \nax.set_yticks([])  \n\n# Remove axes labels\nax.set_xlabel(\"\")  \nax.set_ylabel(\"\")  \n\nplt.show()"
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Visualizing the 2025 California Wildfires\n\n\n\nMEDS\n\n\nGeospatial\n\n\nPython\n\n\n\nUsing landsat data to visualize the extent of wildfires through true and false color images, and investigating socioeconomics in impacted areas.\n\n\n\nNathalie Bonnet\n\n\nDec 3, 2025\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]
