@@ -2,7 +2,9 @@
   {
     "listing": "/posts.html",
     "items": [
-      "/posts/la_fires/la_fires.html"
+      "/posts/stats_model/stats_model.html",
+      "/posts/la_fires/la_fires.html",
+      "/posts/first-blog/index.html"
     ]
   }
 ]
