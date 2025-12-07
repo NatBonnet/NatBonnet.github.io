@@ -1,0 +1,404 @@
+---
+title: "Predicting Suitable Aquaculture Zones with EEZ data and Water Conditions"
+format: html
+date: 2025-12-06
+categories: [MEDS, Geospatial, R, data-viz]
+code-fold: True
+warning: False
+error: False
+citation: True
+---
+
+![Image retrieved from GettyImages](fish.png) 
+
+## Introduction
+Aquaculture as a means of protein food production is increasingly necessary to support global nutritional demand. Done right, growing seafood above other animal proteins has the potential to reduce carbon emissions from other sources such as cattle. Therefore, it is critical to study the complex dynamics that contribute to sustainable aquaculture practices. This demands an understanding of the factors that will influence aquaculture site suitability to maximize sustainable output and reduce environmental impact. 
+
+The following analysis was completed as a homework task for EDS223 in the Bren MEDS program [github link](https://github.com/NatBonnet/eds-223-aquaculture).
+
+The goal of the analysis was to use data about ocean conditions to predict the amount of suitable area for a given species within each of five Pacific West coast exclusive economic zones (EEZs). 
+
+The initial data processing and analyses were conducted based on a given range of suitable temperature and maximum depth conditions for oyster aquaculture. The final workflow included a function that transforms inputs of maximum and minimum temperature and depth conditions for any given species into a map of total suitable area in each WC EEZ, and the name of the most suitable region. 
+
+## Data access and information
+For the analyses, we utilized publicly available sea surface temperature (SST) and bathymetry data from the Pacific, and West coast EEZ region data.
+
+Annual average SST data (2008-2012) was accessed from NOAA Coral Reef Watch. These and depth profiles (GEBCO) were accessed as raster images.
+
+EEZ region data were accessed as a geographic shapefile. 
+
+## Data import
+
+One unique aspect of processing geospatial information in R/R Studio is the need to consider package compatibility. In recent years {terra} has grown in popularity, particularly for its compatibility with {tidyterra}, from which the functions resemble familiar {tidyverse} ones. Ocean condition files were stored as `.tif` files, which are imported as rasters. 
+
+Average SST raster layers were stacked upon reading in the data, with one layer representing average values from its corresponding year. 
+
+EEZ spatial data were imported as a simple feature object using {sf}. Knowing that these objects were intially read from different packages was something that was kept in mind throughout analysis in the case that package incompatibility resulted in error. 
+
+```{r, echo=FALSE}
+#| output: false
+# Read in necessary libraries
+library(tidyverse)
+library(sf)
+library(here)
+library(tmap)
+library(patchwork)
+library(raster)
+library(terra)
+library(tidyterra)
+library(stars)
+```
+
+```{r}
+#| output: false
+# Load in data files
+eez <- read_sf(here("posts", "eez_aquaculture", "data", "wc_regions_clean.shp"))
+
+depth <- rast(here("posts", "eez_aquaculture", "data", "depth.tif"))
+
+# Combine sst rasters into a stack
+sst <- rast(c((
+  here(
+    "posts",
+    "eez_aquaculture",
+    "data",
+    "average_annual_sst_2008.tif"
+  )
+), (
+  here(
+    "posts",
+    "eez_aquaculture",
+    "data",
+    "average_annual_sst_2009.tif"
+  )
+), (
+  here(
+    "posts",
+    "eez_aquaculture",
+    "data",
+    "average_annual_sst_2010.tif"
+  )
+), (
+  here(
+    "posts",
+    "eez_aquaculture",
+    "data",
+    "average_annual_sst_2011.tif"
+  )
+), (
+  here(
+    "posts",
+    "eez_aquaculture",
+    "data",
+    "average_annual_sst_2012.tif"
+  )
+)))
+
+```
+
+## Data processing
+The ultimate goal of this workflow was to produce a spatial object to find areas that are suitable for a given species based on surface temperature and total depth. 
+
+The first step a workflow with multiple spatial objects should be to check if coordinate reference systems (CRS) match between datasets.
+In order to eventually stack rasters, the CRS, spatial extent, and resolution of cells must match. 
+
+In this stage of analysis I used a warning and if-else statement to ensure that the depth and SST data matched the same CRS as that of EEZ zones. 
+
+```{r}
+#| output: false
+# Check CRS and fix if no match
+if (crs(eez) == crs(depth) &
+crs(eez) == crs(sst) &
+crs(depth) == crs(sst)){
+  print("CRS matches on all data")
+} else{
+  warning("CRS does not match between all datasets")
+  crs(depth) <- crs(eez)
+  crs(sst) <- crs(eez)
+}
+```
+
+To get an estimate of the average sea surface temperature across multiple years, the average was taken across the stacked raster object. This workflow also included converting temperature from Kelvin to Celsius, which was achieved by subtracting 273.15 from all cell values in the averaged raster. 
+
+```{r}
+# Create raster of average SST values
+mean_sst <- mean(sst)
+
+mean_sst <- mean_sst - 273.15
+```
+
+In the next step to combine surface temperature data and depth data, we needed to match the spatial extent for both rasters. This is easily achieved by cropping an object to the extent of another. 
+
+```{r}
+# Crop by the extent of the sst
+sst_ext <- ext(mean_sst)
+
+depth_crop <- crop(depth, sst_ext)
+```
+
+Finally, the spatial resolutions needed to match between the bathymetry data and the mean sst data. The method applied here was `resample` to reorganize the cropped depth raster cells to match the resolution of the temperature data. 
+
+```{r}
+#| output: false
+depth_crop_res = resample(depth_crop, mean_sst)
+```
+
+You can easily check if all three necessary elements match by seeing if raster layers can stack, confirming that the CRS, extent, and resolution are the same.
+
+```{r}
+#| output: false
+
+# Check that bathymetry layer can stack with mean_sst
+c(depth_crop_res, mean_sst)
+# Works
+```
+
+
+## Creating mask of suitable cells for a given species
+
+The next step in the workflow was reclassifying both depth and sst to define areas as suitable or unsuitable for aquaculture. 
+
+```{r}
+# Reclassify suitable locations based on parameters
+
+# Create reclassification matrices
+sst_rcl <- matrix(c(-Inf, 11, 0,
+                  11, 30, 1,
+                  30, Inf, 0), 
+                  ncol = 3, byrow=TRUE)
+
+depth_rcl <- matrix(c(-Inf, -70, 0,
+                  -70, 0, 1,
+                  0, Inf, 0), 
+                  ncol = 3, byrow=TRUE)
+
+# Reclassify appropriately
+
+sst_reclass <- classify(mean_sst, rcl = sst_rcl)
+
+depth_reclass <- classify(depth_crop_res, rcl = depth_rcl)
+```
+
+Because reclassified cells are now binary, raster cells that both were classified as suitable (share the value = 1) are found by multiplying the rasters together. The shared cells will return "suitable" only for cells where both depth and temperature are classified as suitable originally.
+
+```{r}
+# Multiply rasters to find where suitable conditions overlap
+suitable <- sst_reclass*depth_reclass
+```
+
+Quantifying the total area, and thus the total number of suitable cells for oyster was necessary. The suitability information from the reclassified raster was joined to EEZ data using the methods `mask()` and `extract()` which allowed observations to be summarized as a dataframe. 
+
+```{r}
+# Find the total suitable area within each eez
+
+# Mask eez by suitable cells in West Coast region
+suitable_eez <- mask(suitable, eez)
+
+# Extract values based on eez zones
+zonal <- extract(suitable_eez, eez)
+
+# Return the count of raster cells that are suitable in each eez
+zonal_count <- zonal %>% 
+  group_by(ID) %>% 
+  summarise(count = sum(mean, na.rm = TRUE)) 
+
+# Summary table
+kableExtra::kable(zonal_count, caption = "Total count of raster cells classified as suitable for oyster by West Coast EEZ area", align = "c")
+```
+
+The dimensions of cells containing suitability data were multiplied by the number of suitable cells to quantify the actual area (km²) contained within suitable areas. Similarly to how the total number of suitable cells was found, the sum of suitable area by EEZ area was calculated. This information was joined onto the original EEZ data in order to be able to map EEZ zones by suitable area.
+```{r}
+# Multiply the number of suitable cells by the dimensions of each cell itself to find area
+eez_area <- suitable_eez *cellSize(suitable_eez, unit = 'km')
+
+# Pull out values by eez zone 
+zonal_area <- extract(eez_area, eez)
+
+# Summarize total area by zone
+zonal_area <- zonal_area %>% 
+  group_by(ID) %>% 
+  summarize(area = sum(mean, na.rm = TRUE)) %>% 
+  rename('rgn_id' = ID)
+
+# join area information to eez zone information
+eez_zone_areas <- left_join(eez, zonal_area, by = 'rgn_id')
+```
+
+## Final visualization output
+The final steps in the summarized workflow was to visualize the total suitable area by EEZ for a species of interest, and to select the best EEZ for aquaculture of that product. 
+
+```{r}
+# Create map with continuous area scale
+tm_shape(eez_zone_areas) +
+  tm_polygons(fill = 'area',
+              fill.scale = tm_scale_continuous(values = "brewer.blues"), 
+              fill.legend = tm_legend(title = "suitable area (km²)")) +
+  tm_basemap("Esri.OceanBasemap") +
+  tm_title(text = "Total Suitable Area for Oyster Aquaculture by EEZ", width = 10) +
+  tm_layout(component.autoscale=FALSE) +
+  tm_graticules(alpha = 0.2) +
+   tm_basemap("Esri.OceanBasemap") +
+  tm_text(text = "rgn", size = 0.4)
+
+# Create subset of data frame to pull out most suitable EEZ
+eez_table <- eez_zone_areas %>% 
+  select(rgn, area) %>% 
+  st_drop_geometry() %>% 
+  #rename("Region" = rgn, "Area (km²)" = area) %>% 
+  slice_max(area, n=1)
+
+# Print in kable formatting
+kableExtra::kable(eez_table, caption = "Most Suitable West Coast EEZ for Oysters", align = "c")
+```
+
+The output of a workflow specific to oysters demonstrates that the central California coast is most suitable for oyster aquaculture with a total suitable area of 3656 km². 
+
+This output was used to compare to that returned by a general workflow function built in the next step.
+
+## Generalized function
+To create a function that takes in species specific parameters, the function had to take arguments for eez data, depth and temperature, and the range values for temperature and depth of a selected species.
+
+The function begins at the CRS checking step of the workflow above, and all species specific inputs are replaced by parameters from the function. 
+```{r}
+# Generalized function
+eez_area_zone <- function(eez_data, depth_data, sst_data, min_temp, max_temp, min_depth, max_depth, species_name){
+  
+# Make sure all CRSs match with the EEZ data
+  if (crs(eez_data) != crs(depth_data) |
+crs(eez_data) != crs(sst_data) |
+crs(depth_data) != crs(sst_data)){
+  crs(depth_data) <- crs(eez_data)
+  crs(sst_data) <- crs(eez_data)
+}
+  
+# Find the mean sea surface temperature values and convert to Celsius
+  mean_sst <- mean(sst_data)
+  
+  mean_sst <- mean_sst - 273.15
+  
+# Crop depth data to the extent of the sea surface temperature data
+  # Crop by the extent of the sst
+  sst_ext <- ext(mean_sst)
+
+  depth_crop <- crop(depth_data, sst_ext)
+
+# Re sample the depth data to match the resolution of sst data
+  depth_crop_res <- resample(depth_crop, mean_sst)
+
+# Create reclassification matrices
+  sst_rcl <- matrix(c(-Inf, min_temp, 0,
+                  min_temp, max_temp, 1,
+                  max_temp, Inf, 0), 
+                  ncol = 3, byrow=TRUE)
+
+  depth_rcl <- matrix(c(-Inf, max_depth, 0,
+                  max_depth, min_depth, 1,
+                  min_depth, Inf, 0), 
+                  ncol = 3, byrow=TRUE)
+
+# Reclassify raster data with matrices
+  sst_reclass <- classify(mean_sst, rcl = sst_rcl)
+
+  depth_reclass <- classify(depth_crop_res, rcl = depth_rcl)
+  
+# Find area where there is overlap in suitability
+  suitable_cells <- sst_reclass*depth_reclass
+
+# Mask EEZ data by suitable cells in West Coast region
+  suitable_eez <- mask(suitable_cells, eez_data)
+
+# Get EEZ data for only suitable EEZ areas
+  zonal <- extract(suitable_eez, eez_data)
+
+# Find the suitable area contained by each cell
+ eez_area <- suitable_eez *cellSize(suitable_eez, unit = 'km')
+
+# Extract the total area from EEZ zones
+ zonal_area <- extract(eez_area, eez_data)
+ 
+# Find the total suitable area in each EEZ zone
+  zonal_area <- zonal_area %>% 
+  group_by(ID) %>% 
+  summarize(area = sum(mean, na.rm = TRUE)) %>% 
+  rename('rgn_id' = ID)
+
+# Join EEZ data with suitable area data by region
+eez_zone_areas <- left_join(eez_data, zonal_area, by = 'rgn_id')
+
+# Plot the species 
+print(
+  tm_shape(eez_zone_areas) +
+  tm_polygons(fill = 'area',
+              fill.scale = tm_scale_continuous(values = "brewer.blues"), 
+              fill.legend = tm_legend(title = "suitable area (km²)")) +
+  tm_title(text = paste0("Total Suitable Area for ", species_name, " Aquaculture by EEZ"), width = 10) +
+  tm_layout(component.autoscale=FALSE) +
+  tm_graticules(alpha = 0.2) +
+  tm_basemap("Esri.OceanBasemap") +
+  tm_text(text = "rgn", size = 0.4)
+  )
+
+# Create subset of data frame to pull out most suitable EEZ
+eez_table <- eez_zone_areas %>% 
+  select(rgn, area) %>% 
+  st_drop_geometry() %>% 
+  slice_max(area, n=1)
+
+
+# Print in kable formatting
+kableExtra::kable(eez_table, caption = paste0("Most Suitable West Coast EEZ for ", species_name), align = "c")
+}
+```
+
+I then used the function to cross check the  original output from oyster data against what the function returns.
+
+```{r}
+# Compare output from function to original map
+eez_area_zone(eez_data = eez, 
+              depth_data = depth, 
+              sst_data = sst, 
+              min_temp = 11,
+              max_temp = 30,
+              min_depth = 0, 
+              max_depth = -70, 
+              species_name = "Oyster")
+```
+
+The output from the function matched, so the next step was to select a different species to apply the function to. 
+
+California Yellowtail (also known as Amberjack, Hamachi, or Yellowtail Jack) are large pelagic finfish typically caught using drift gillnets. In recent years they have been increasingly studied as a potential aquaculture species due to an existing market with good return value and their relatively high larval survival rates (Rotman et al. 2021). Their maximum temperature range falls between 15°C and 22°C. Their range as a pelagic fish can be anywhere between right below the surface to approximately 300 meters deep. Their depth range caused me to believe that it might be the case that many areas along the West coast would appear to be suitable for Yellowtail.
+
+```{r}
+# Use function for California Yellowtail aquaculture zone
+eez_area_zone(eez_data = eez, 
+              depth_data = depth, 
+              sst_data = sst, 
+              min_temp = 15,
+              max_temp = 22,
+              min_depth = -3, 
+              max_depth = -300, 
+              species_name = "California Yellowtail")
+```
+The results of the map and total suitable area within the most optimal EEZ compared to our oyster example show a large decrease in suitable area across all zones, and that only Southern California was suitable at all. 
+
+Thinking about our two input data sources that determine suitability, we were only able to look at annually averaged sea surface temperature over 4 years. As Yellowtail are a pelagic fish, that likely do not spend a majority of their time at the surface, our temperature data is extremely limited in its ability to predict suitability beyond the surface. Further, as these data are an annual average, seasonal temperature fluctuations and mixing are not represented within the data. Yellowtail are highly mobile fish, with a range between British Columbia and Mazatlán, Mexico (California Department of Fish and Wildlife). Age is a significant factor in thermal tolerance, as older fish are better able to tolerate cold conditions. Thus, the temporal resolution of the data and the lack of a temperature depth profile are a large constraint on the predictive value of this simplified analysis, which is more relevant to surface dwelling species such as sedentary rocky intertidal organisms like oysters. 
+
+## References
+
+### Literature
+
+California yellowtail Amberjack seafood recommendation. Seafoodwatch.org. https://www.seafoodwatch.org/recommendation/amberjack/california-yellowtail-57716 
+
+Rotman, F., Stuart, K., Silbernagel, C., & Drawbridge, M. (2021). The status of California yellowtail Seriola dorsalis as a commercially ready species for marine U.S. aquaculture. *Journal of the World Aquaculture Society*, *52*(3), 595–606. https://doi.org/10.1111/jwas.12808
+
+California Department of Fish and Wildlife. Yellowtail Enhanced Status Report. CA Marine Species Portal. https://marinespecies.wildlife.ca.gov/yellowtail/the-species/ 
+
+Zhang, Z., Liu, H., Jin, J., Zhu, X., Han, D., & Xie, S. (2024). Towards a low-carbon footprint: Current status and Prospects for Aquaculture. Water Biology and Security, 3(4), 100290. https://doi.org/10.1016/j.watbs.2024.100290 
+
+### Datasets
+
+ *NOAA Coral Reef Watch*. NOAA Coral Reef Watch Daily 5km satellite coral bleaching heat stress SST anomaly product (version 3.1). https://coralreefwatch.noaa.gov/product/5km/index_5km_ssta.php 
+ 
+*Gridded bathymetry data*. GEBCO. https://www.gebco.net/data-products/gridded-bathymetry-data#area
+
+*EEZ boundaries.* Marine regions. https://www.marineregions.org/eez.php
