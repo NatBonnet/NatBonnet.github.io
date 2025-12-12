@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nathalie Bonnet">
-<meta name="dcterms.date" content="2025-12-04">
+<meta name="dcterms.date" content="2025-12-11">
 
 <title>Predicting Thermal Tolerance in California Bees using a Gamma Distribution Linear Model – Nathalie Bonnet</title>
 <style>
@@ -75,10 +75,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f2c0002a2b4dfa62c2bf971a12272af1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-98a40c22bfadfb53c291428ca4a1a9d5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -223,7 +223,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 4, 2025</p>
+        <p class="date">December 11, 2025</p>
       </div>
     </div>
     
@@ -249,9 +249,15 @@ window.Quarto = {
   <li><a href="#subsetting-data" id="toc-subsetting-data" class="nav-link" data-scroll-target="#subsetting-data">Subsetting data</a></li>
   <li><a href="#drawing-a-dag" id="toc-drawing-a-dag" class="nav-link" data-scroll-target="#drawing-a-dag">Drawing a DAG</a></li>
   <li><a href="#choosing-a-model" id="toc-choosing-a-model" class="nav-link" data-scroll-target="#choosing-a-model">Choosing a model</a></li>
+  <li><a href="#limitations-in-survivorship-data" id="toc-limitations-in-survivorship-data" class="nav-link" data-scroll-target="#limitations-in-survivorship-data">Limitations in survivorship data</a></li>
+  <li><a href="#the-gamma-distributed-glm" id="toc-the-gamma-distributed-glm" class="nav-link" data-scroll-target="#the-gamma-distributed-glm">The Gamma Distributed GLM</a></li>
   <li><a href="#simulated-model-outcome" id="toc-simulated-model-outcome" class="nav-link" data-scroll-target="#simulated-model-outcome">Simulated model outcome</a></li>
   <li><a href="#generating-two-models" id="toc-generating-two-models" class="nav-link" data-scroll-target="#generating-two-models">Generating two models</a></li>
+  <li><a href="#correcting-predictions-for-genus-level-variation-in-body-mass" id="toc-correcting-predictions-for-genus-level-variation-in-body-mass" class="nav-link" data-scroll-target="#correcting-predictions-for-genus-level-variation-in-body-mass">Correcting predictions for genus level variation in body mass</a></li>
+  <li><a href="#plot-with-adjusted-predictions" id="toc-plot-with-adjusted-predictions" class="nav-link" data-scroll-target="#plot-with-adjusted-predictions">Plot with adjusted predictions</a></li>
+  <li><a href="#model-2-modeling-thermal-tolerance-including-ambient-air-temperature" id="toc-model-2-modeling-thermal-tolerance-including-ambient-air-temperature" class="nav-link" data-scroll-target="#model-2-modeling-thermal-tolerance-including-ambient-air-temperature">Model 2: Modeling thermal tolerance including ambient air temperature</a></li>
   <li><a href="#comparing-models-and-interpreting-outputs" id="toc-comparing-models-and-interpreting-outputs" class="nav-link" data-scroll-target="#comparing-models-and-interpreting-outputs">Comparing models and interpreting outputs</a></li>
+  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations">Citations</a></li>
   </ul>
 </nav>
     </div>
@@ -262,14 +268,14 @@ window.Quarto = {
 
 
 
-<section id="dataset-background-and-motivations" class="level2">
-<h2 class="anchored" data-anchor-id="dataset-background-and-motivations">Dataset background and motivations</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="bee_photo.png" class="img-fluid figure-img"></p>
 <figcaption>California native bees on a flower. Photo shows a male Agapostemon bee (left) next to a smaller bee (likely of genus Halictus)</figcaption>
 </figure>
 </div>
+<section id="dataset-background-and-motivations" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-background-and-motivations">Dataset background and motivations</h2>
 <p>Native bee species are essential in supporting natural ecosystems because the reproduction of nearly 90% of all flowering plants depends on pollinators (Ollerton et al.&nbsp;2011). Declines in bee populations due to land use and climate change threaten biodiversity and food security for the human population.</p>
 <p>Bees are susceptible to climate change because their flight activity can increase body temperature beyond ambient air temperature (Heinrich and Buchmann 1986), forcing them to pollinate beyond their critical thermal range or stop pollinating altogether in high temperatures (Suni and Dela Cruz 2021). Body size is another trait of interest because of its impact on an individual’s ability to release heat, depending on their surface area to volume ratio. Further, sex has been identified as a potential variable in thermal tolerance (Maebe et al.&nbsp;2021)</p>
 <p>With increasing frequency of extreme weather events, it becomes critical to understand the variables that influence pollinator thermal tolerance as it relates to supporting ecosystem services. Further, an increasing scientific interest in species beyond European honey bees (Apis mellifera) is paramount to preserving biodiversity.</p>
@@ -313,11 +319,12 @@ window.Quarto = {
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">lasioglossum =</span> <span class="st">"Lasioglossum"</span>,</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Lasioglossum "</span> <span class="ot">=</span> <span class="st">"Lasioglossum"</span>,</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">nomada =</span> <span class="st">"Nomada"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genus) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">Augochlorella =</span> <span class="st">"Augochorella"</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genus) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -452,7 +459,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Looking at the central tendency and distribution of TBS in relation to genus and sex. The data across sex does not appear to represent the entire sample, and there are a fair amount of NA values to account for before trying to construct a model.</p>
+<p>Looking at the central tendency and distribution of TBS in relation to genus and sex, the data across sex does not appear to represent the entire sample, and there are a fair amount of NA values to account for before trying to construct a model.</p>
 </section>
 </section>
 <section id="subsetting-data" class="level2">
@@ -464,9 +471,11 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset data frame to only include genera with greater than 3 observations</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>therm_subset <span class="ot">&lt;-</span> therm_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Drop rows with NAs from variables of interest</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(tbs_mins, mass_g, ambient_air_temperature_c, genus) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tbs_mins <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(catalog_number, genus, sex, tbs_mins, censor, mass_g, ambient_air_temperature_c) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(tbs_mins, mass_g, ambient_air_temperature_c, genus) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(tbs_mins <span class="sc">&gt;</span> <span class="dv">0</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Drop Augochorella because only 2 individuals remain after dropping NAs</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         genus <span class="sc">!=</span> <span class="st">"Augochorella"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(catalog_number, genus, sex, tbs_mins, censor, mass_g, ambient_air_temperature_c) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -497,17 +506,36 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>With the background knowledge from prior research, exploratory analysis, and cleaned data, I created a DAG to represent the possible causative relationships between thermal tolerance and other variables included in sampling.</p>
+<p>With the background knowledge from prior research, exploratory analysis, and cleaned data, I created a DAG to represent the possible causative relationships between thermal tolerance and other variables included in sampling. Genus is thought to influence thermal tolerance through physiological variables such as body mass. Air temperature (Heinrich and Buchmann 1986) has long been thought to influence heat tolerance as warmer ambient conditions may make it more difficult for bees to thermoregulate during flight.</p>
 </section>
 <section id="choosing-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="choosing-a-model">Choosing a model</h2>
 <p>The histogram created to visualize the distribution of my response variable indicated a right skew in the data, which was confirmed by a measure of skewness. These data are all positive and continuous values.</p>
 <p>These data attributes fit the primary assumptions of gamma distributed data.</p>
 <p>The gamma distribution is a continuous probability distribution modeling right skewed positive data. The distribution takes on two parameters, a shape parameter (a), and a scale parameter (). The shape parameter determines the skewness and modality of the distribution, while the scale parameter controls the spread and mean.</p>
+</section>
+<section id="limitations-in-survivorship-data" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-in-survivorship-data">Limitations in survivorship data</h2>
 <p>A caveat to using this distribution is the aforementioned census variable, which is extremely common in survivorship data such as these. The censor variable indicates if the event of interest was actually observed by the end of the study. This inherently links to the way tolerance is predicted, which suggests a more complex model such as a mixed effect model or a survivorship specific model may fit the data generating process better.</p>
 <p>However, for the purposes of understanding the relationships through a more simplified model and learning how to apply the family ‘gamma’ to a model, I explored the effects of the variables described in the DAG using:</p>
-<p><span class="math display">\[TBS\tilde{}Gamma(\alpha, \phi)\]</span></p>
-<p><span class="math display">\[log(\mu)  =  \beta_0 + \beta_1*mass + \beta_2*temperature + \beta_3*Agapostemon + \beta_4*Apis + \beta_5*Augochorella + \beta_6*Colletes + \beta_7*Diadasia + \beta_8*Halictus + \beta_9*Lasioglossum + \sigma\beta_I_k(mass*genus_i,_k)\]</span></p>
+</section>
+<section id="the-gamma-distributed-glm" class="level2">
+<h2 class="anchored" data-anchor-id="the-gamma-distributed-glm">The Gamma Distributed GLM</h2>
+<p><span class="math display">\[TBS\hspace{0.2cm}\tilde{}\hspace{0.2cm}Gamma(\alpha, \phi)\]</span></p>
+<p><span class="math display">\[\begin{align}
+log(\mu)
+= \beta_0
++ \beta_1\, mass
++ \beta_2\, temperature
++ \beta_3\, Agapostemon
++ \beta_4\, Apis
++ \beta_5\, Augochorella\\
++ \beta_6\, Colletes
++ \beta_7\, Diadasia
++ \beta_8\, Halictus
++ \beta_9\, Lasioglossum
++ \beta_{I_k} (mass \cdot genus_{i_k})
+\end{align}\]</span></p>
 <p>The linearized predictor link function allows the interaction that we would expect between genus and mass, as mass is variable by genus. This allows flexibility between predicted lines by genus.</p>
 </section>
 <section id="simulated-model-outcome" class="level2">
@@ -518,87 +546,59 @@ window.Quarto = {
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data for sim model</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model assumptions</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span> <span class="co"># Sample size</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>beta0  <span class="ot">&lt;-</span> <span class="fl">1.0</span> <span class="co"># Intercept</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>beta_mass <span class="ot">&lt;-</span> <span class="fl">0.6</span> <span class="co"># Effect of body mass on response</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>beta_temp <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.05</span> <span class="co"># Effect of temperature on response</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Gamma shape parameter</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>genus_sd <span class="ot">&lt;-</span> <span class="fl">0.4</span> <span class="co"># SD of genus-level random intercepts</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data with genera</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>genus <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Agapostemon"</span>,<span class="st">"Apis"</span>,<span class="st">"Augochorella"</span>,<span class="st">"Bombus"</span>, <span class="st">"Colletes"</span>, <span class="st">"Diadasia"</span>, <span class="st">"Halictus"</span>, <span class="st">"Lasioglossum"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random genus effects on response</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>genus_effect <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">8</span>, <span class="dv">0</span>, genus_sd)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(genus_effect) <span class="ot">&lt;-</span> <span class="fu">levels</span>(genus)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Make model assumptions</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># Sample size</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>beta0  <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="co"># Intercept</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.2</span> <span class="co"># Effect of body mass on response</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>phi <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># Gamma shape parameter</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data for predictors</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>pred1<span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Linearized model to predict log expected time</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>log_mu <span class="ot">&lt;-</span> beta0 <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>       beta_1<span class="sc">*</span>pred1</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">exp</span>(log_mu) </span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data for predictors</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>body_mass <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="fl">0.3</span>, <span class="at">sd =</span> <span class="fl">0.03</span>)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>amb_temp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">23</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Linearized model to predict log expected time</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>log_mu <span class="ot">&lt;-</span> beta0 <span class="sc">+</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>       beta_mass<span class="sc">+</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>       beta_temp<span class="sc">+</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>       genus_effect[genus]</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate response variable</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="at">shape =</span> phi, <span class="at">scale =</span> mu <span class="sc">/</span> phi)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Put predictors into a dataframe</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(resp, pred1)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>sim_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(resp <span class="sc">~</span> pred1,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>),</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> sim_data)</span>
 <span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">exp</span>(log_mu) </span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate response variable</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="at">shape =</span> phi, <span class="at">scale =</span> mu <span class="sc">/</span> phi)</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Put predictors into a dataframe</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(time, body_mass, amb_temp, genus)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>sim_fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(time <span class="sc">~</span> body_mass <span class="sc">*</span> genus <span class="sc">+</span> amb_temp,</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>),</span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> sim_data)</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sim_fit) <span class="co"># We expect to see the values we put in</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sim_fit) <span class="co"># We expect to see the values we put in</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = time ~ body_mass * genus + amb_temp, family = Gamma(link = "log"), 
-    data = sim_data)
+glm(formula = resp ~ pred1, family = Gamma(link = "log"), data = sim_data)
 
 Coefficients:
-                              Estimate Std. Error t value Pr(&gt;|t|)   
-(Intercept)                  0.7795929  0.5123172   1.522  0.12874   
-body_mass                    2.3696060  1.6626686   1.425  0.15475   
-genusApis                    1.0789334  0.7040658   1.532  0.12607   
-genusAugochorella            1.1735018  0.8182317   1.434  0.15216   
-genusBombus                  2.2059504  0.7463271   2.956  0.00327 **
-genusColletes                1.3427067  0.7133121   1.882  0.06039 . 
-genusDiadasia                1.3297027  0.8613966   1.544  0.12333   
-genusHalictus                1.0379121  0.7322019   1.418  0.15698   
-genusLasioglossum            0.3179593  0.8229940   0.386  0.69941   
-amb_temp                    -0.0004489  0.0065872  -0.068  0.94569   
-body_mass:genusApis         -4.4353492  2.3577700  -1.881  0.06055 . 
-body_mass:genusAugochorella -3.9819276  2.7266688  -1.460  0.14484   
-body_mass:genusBombus       -6.8202350  2.5031369  -2.725  0.00667 **
-body_mass:genusColletes     -2.1282747  2.3585016  -0.902  0.36730   
-body_mass:genusDiadasia     -4.2157418  2.8436581  -1.483  0.13886   
-body_mass:genusHalictus     -1.6217400  2.4697515  -0.657  0.51172   
-body_mass:genusLasioglossum -0.4322996  2.7392295  -0.158  0.87467   
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.46842    0.02173  21.553   &lt;2e-16 ***
+pred1       -0.19231    0.02192  -8.772   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for Gamma family taken to be 0.1942694)
+(Dispersion parameter for Gamma family taken to be 0.4721943)
 
-    Null deviance: 151.56  on 499  degrees of freedom
-Residual deviance: 100.49  on 483  degrees of freedom
-AIC: 2228.1
+    Null deviance: 554.90  on 999  degrees of freedom
+Residual deviance: 519.42  on 998  degrees of freedom
+AIC: 2685.9
 
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
-<p>Here, I defined model assumptions and ran the model expecting to get similar beta values. The expected values for multiple betas were not in proximity to my assumption inputs, and the interaction betas were dissimilar from each other, suggesting that there is some interactive effect between genus and mass in the simulated data. However, it is difficult to simulate ecological data and make meaningful conlusions due to the uncertainty and confounders in any system.</p>
+<p>Here, I defined model assumptions and ran the model expecting to get similar beta values. The expected values for multiple betas were not in proximity to my assumption inputs, and the interaction betas were dissimilar from each other, suggesting that there is some interactive effect between genus and mass in the simulated data. However, it is difficult to simulate ecological data and make meaningful conclusions due to the uncertainty and confounders in any system.</p>
 </section>
 <section id="generating-two-models" class="level2">
 <h2 class="anchored" data-anchor-id="generating-two-models">Generating two models</h2>
-<p>Using the principles demonstrated in the data simulation, I ran two models to observe the effect of including ambient air temperature as a predictor.</p>
+<p>Using the principles demonstrated in the data simulation, I ran two models to observe the effect of including ambient air temperature as a predictor. ## Model 1: Modeling thermal tolerance with only mass and genus Part of the motivation for the collection of this dataset was to investigate if ambient air temperature at the time of collection of individuals affected predicted thermal tolerance. Model 1 excludes ambient air temperature to visualize the interaction between mass and genus alone.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -611,6 +611,7 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>mod1_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+<p>To model predicted data, initially I utilized <code>expand_grid()</code> as a convenient way to create a predicted data grid.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -619,28 +620,27 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mass_g =</span> <span class="fu">seq</span>(</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(therm_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">max</span>(therm_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">length.out =</span> <span class="fu">length</span>(therm_subset<span class="sc">$</span>mass_g)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">genus =</span> <span class="fu">unique</span>(therm_subset<span class="sc">$</span>genus)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>pred_ci1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">newdata =</span> pred_data1,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">"link"</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>pred_results1 <span class="ot">&lt;-</span> pred_data1 <span class="sc">%&gt;%</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate predictions in link space</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">link_vals =</span> pred_ci1<span class="sc">$</span>fit,</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate column of standard errors from link space values</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> pred_ci1<span class="sc">$</span>se.fit,</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Back out of link space, generate response predictions</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_tbs =</span> <span class="fu">exp</span>(link_vals),</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate confidence interval (~2 standard deviations away from predicted values in the response space)</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">exp</span>(link_vals <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se),</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">exp</span>(link_vals <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">genus =</span> <span class="fu">unique</span>(therm_subset<span class="sc">$</span>genus)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>pred_ci1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">newdata =</span> pred_data1,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">"link"</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>pred_results1 <span class="ot">&lt;-</span> pred_data1 <span class="sc">%&gt;%</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate predictions in link space</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">link_vals =</span> pred_ci1<span class="sc">$</span>fit,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate column of standard errors from link space values</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> pred_ci1<span class="sc">$</span>se.fit,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Back out of link space, generate response predictions</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_tbs =</span> <span class="fu">exp</span>(link_vals),</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate confidence interval (~2 standard deviations away from predicted values in the response space)</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">exp</span>(link_vals <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se),</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">exp</span>(link_vals <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
@@ -650,12 +650,12 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>genus, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">fill =</span> genus),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>)) <span class="sc">+</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">900</span>)) <span class="sc">+</span></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Predicted Time Before Stupor (TBS) with a Gamma GLM"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Log Mass (g)"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Mass (g)"</span>,</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Predicted TBS (minutes)"</span></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
@@ -669,70 +669,164 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 </div>
+<p>Visualizing the outcome of the predictions based on the model 1 gamma GLM, all predictions fall in the same range of body mass prediction values (0-0.1 grams). However, based on the ecological background of this study, we know that these body mass ranges should vary from genus to genus based on variation in physiology due to taxonomy. This means that the way the data is represented above is an inaccurate depiction of possible observations.</p>
+</section>
+<section id="correcting-predictions-for-genus-level-variation-in-body-mass" class="level2">
+<h2 class="anchored" data-anchor-id="correcting-predictions-for-genus-level-variation-in-body-mass">Correcting predictions for genus level variation in body mass</h2>
+<p>To correct this, I built a function to build the prediction grid based on the minimum and maximum body mass for each genus, and created predictions with those values to more accurately display modeled results.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  tbs_mins <span class="sc">~</span> mass_g <span class="sc">*</span> genus <span class="sc">+</span> ambient_air_temperature_c,</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>),</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> therm_subset</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>mod2_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to build a dataframe for each genus with mass range boundaries</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mod1_genus_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(genus_name) {</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  genus_subset <span class="ot">&lt;-</span> therm_subset <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(genus <span class="sc">==</span> genus_name)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build prediction grid for given genus</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mass_g =</span> <span class="fu">seq</span>(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">min</span>(genus_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">max</span>(genus_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">length.out =</span> <span class="dv">100</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">genus =</span> genus_name</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list of all unique genus_names</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>total_genera <span class="ot">&lt;-</span> <span class="fu">unique</span>(therm_subset<span class="sc">$</span>genus)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Use function to build a prediction dataframe for all genera in model</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>adj_pred_data <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(total_genera, mod1_genus_fun)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict values from predicted data with gamma glm</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>adj_pred_ci <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  mod1,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> adj_pred_data,</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"link"</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">se.fit =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Build dataframe of results</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>adj_pred_results <span class="ot">&lt;-</span> adj_pred_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">link_vals =</span> adj_pred_ci<span class="sc">$</span>fit,</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> adj_pred_ci<span class="sc">$</span>se.fit,</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_tbs =</span> <span class="fu">exp</span>(link_vals),</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">exp</span>(link_vals <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se),</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">exp</span>(link_vals <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+</section>
+<section id="plot-with-adjusted-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="plot-with-adjusted-predictions">Plot with adjusted predictions</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction grid holding temperature at constant value</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pred_data2 <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mass_g =</span> <span class="fu">seq</span>(</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(therm_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">max</span>(therm_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">length.out =</span> <span class="fu">length</span>(therm_subset<span class="sc">$</span>mass_g)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">genus =</span> <span class="fu">unique</span>(therm_subset<span class="sc">$</span>genus),</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ambient_air_temperature_c =</span> <span class="fu">mean</span>(therm_subset<span class="sc">$</span>ambient_air_temperature_c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>pred_ci2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod2,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">newdata =</span> pred_data2,</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"link"</span>,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>                    <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>pred_results2 <span class="ot">&lt;-</span> pred_data2 <span class="sc">%&gt;%</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">link_vals =</span> pred_ci2<span class="sc">$</span>fit,</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> pred_ci2<span class="sc">$</span>se.fit,</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_tbs =</span> <span class="fu">exp</span>(link_vals),</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">exp</span>(link_vals <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se),</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">exp</span>(link_vals <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred_results2, <span class="fu">aes</span>(mass_g, pred_tbs)) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> genus, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">fill =</span> genus),</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Time Before Stupor (TBS) Gamma GLM"</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Log Mass (g)"</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted TBS (minutes)"</span>,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Genus"</span>) <span class="sc">+</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_paletteer_d</span>(<span class="st">"palettetown::charizard"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(adj_pred_results, <span class="fu">aes</span>(mass_g, pred_tbs)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> genus, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">fill =</span> genus),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Time Before Stupor (TBS) Gamma GLM"</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Mass (g)"</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted TBS (minutes)"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Genus"</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_paletteer_d</span>(<span class="st">"palettetown::charizard"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stats_model_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="stats_model_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now, the mass values are appropriately adjusted to ecologically feasible outcomes.</p>
+</section>
+<section id="model-2-modeling-thermal-tolerance-including-ambient-air-temperature" class="level2">
+<h2 class="anchored" data-anchor-id="model-2-modeling-thermal-tolerance-including-ambient-air-temperature">Model 2: Modeling thermal tolerance including ambient air temperature</h2>
+<p>Now, to visualize thermal tolerance response based on genus, body mass, and air temperature, a second model used air temperature as an additive variable.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  tbs_mins <span class="sc">~</span> mass_g <span class="sc">*</span> genus <span class="sc">+</span> ambient_air_temperature_c,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> therm_subset</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>mod2_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Using the same function skeleton to create a prediction grid with flexible scales for mass, ambient air temperature is added in the predictions as a constant mean of the subsetted data.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create another function with ambient air temperature as a column</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mod2_genus_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(genus_name) {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  genus_subset <span class="ot">&lt;-</span> therm_subset <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(genus <span class="sc">==</span> genus_name)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Build prediction grid for THIS genus</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mass_g =</span> <span class="fu">seq</span>(</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">min</span>(genus_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">max</span>(genus_subset<span class="sc">$</span>mass_g, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">length.out =</span> <span class="dv">100</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">genus =</span> genus_name,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">ambient_air_temperature_c =</span> <span class="fu">mean</span>(genus_subset<span class="sc">$</span>ambient_air_temperature_c, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use new function and the same genus names for new dataframe</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>pred_data2 <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(total_genera, mod2_genus_fun)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict values </span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>pred_ci2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>  mod2,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> pred_data2,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"link"</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">se.fit =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Build results</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>pred_results2 <span class="ot">&lt;-</span> pred_data2 <span class="sc">%&gt;%</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">link_vals =</span> pred_ci2<span class="sc">$</span>fit,</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> pred_ci2<span class="sc">$</span>se.fit,</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">pred_tbs =</span> <span class="fu">exp</span>(link_vals),</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">exp</span>(link_vals <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se),</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">exp</span>(link_vals <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred_results2, <span class="fu">aes</span>(mass_g, pred_tbs)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> genus, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper, <span class="at">fill =</span> genus),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Time Before Stupor (TBS) Gamma GLM"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Mass (g)"</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted TBS (minutes)"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Genus"</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_paletteer_d</span>(<span class="st">"palettetown::charizard"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="stats_model_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -740,38 +834,39 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </section>
 <section id="comparing-models-and-interpreting-outputs" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-models-and-interpreting-outputs">Comparing models and interpreting outputs</h2>
+<p>Using the package {broom}, I produced a summary table to compare models 1 and 2 including coefficient significance indicators.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using broom package to clean up summary and return only term, estimate, std.error, statistic, pval, and model which I call</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mod1_sum_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mod1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Model 1"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>mod2_sum_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mod2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Model 2"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine models</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>model_comb <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(mod1_sum_tidy, mod2_sum_tidy)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add back the same significance indicators as the model</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>model_comb <span class="ot">&lt;-</span> model_comb <span class="sc">%&gt;%</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sig =</span> <span class="fu">case_when</span>(</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.001</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.01</span>  <span class="sc">~</span> <span class="st">"**"</span>,</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>  <span class="sc">~</span> <span class="st">"*"</span>,</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.1</span>   <span class="sc">~</span> <span class="st">"."</span>,</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">""</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> model_comb <span class="sc">%&gt;%</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, term, estimate, std.error, statistic, p.value, sig) <span class="sc">%&gt;%</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(term, model)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>summary_table <span class="sc">%&gt;%</span></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Comparison of Gamma GLM Models for TBS"</span>,</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">3</span>,</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lcccccc"</span></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">html_font =</span> <span class="st">"Arial"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Coefficient Details"</span> <span class="ot">=</span> <span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using broom package to clean up summary and return only term, estimate, std.error, statistic, pval, and model which I call</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mod1_sum_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mod1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Model 1"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mod2_sum_tidy <span class="ot">&lt;-</span> <span class="fu">tidy</span>(mod2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Model 2"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine models</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>model_comb <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(mod1_sum_tidy, mod2_sum_tidy)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add back the same significance indicators as the model</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>model_comb <span class="ot">&lt;-</span> model_comb <span class="sc">%&gt;%</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sig =</span> <span class="fu">case_when</span>(</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.001</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.01</span>  <span class="sc">~</span> <span class="st">"**"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>  <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    p.value <span class="sc">&lt;</span> <span class="fl">0.1</span>   <span class="sc">~</span> <span class="st">"."</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">""</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>summary_table <span class="ot">&lt;-</span> model_comb <span class="sc">%&gt;%</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, term, estimate, std.error, statistic, p.value, sig) <span class="sc">%&gt;%</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(term, model)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>summary_table <span class="sc">%&gt;%</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Comparison of Gamma GLM Models for TBS"</span>,</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">align =</span> <span class="st">"lcccccc"</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">html_font =</span> <span class="st">"Arial"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Coefficient Details"</span> <span class="ot">=</span> <span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="lightable-classic caption-top table table-sm table-striped small">
@@ -807,18 +902,18 @@ Coefficient Details
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">(Intercept)</td>
 <td style="text-align: center;">3.841</td>
-<td style="text-align: center;">0.258</td>
-<td style="text-align: center;">14.916</td>
+<td style="text-align: center;">0.260</td>
+<td style="text-align: center;">14.746</td>
 <td style="text-align: center;">0.000</td>
 <td style="text-align: center;">***</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">(Intercept)</td>
-<td style="text-align: center;">0.314</td>
-<td style="text-align: center;">0.959</td>
-<td style="text-align: center;">0.327</td>
-<td style="text-align: center;">0.745</td>
+<td style="text-align: center;">0.308</td>
+<td style="text-align: center;">0.972</td>
+<td style="text-align: center;">0.317</td>
+<td style="text-align: center;">0.753</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
@@ -826,7 +921,7 @@ Coefficient Details
 <td style="text-align: center;">ambient_air_temperature_c</td>
 <td style="text-align: center;">0.137</td>
 <td style="text-align: center;">0.035</td>
-<td style="text-align: center;">3.948</td>
+<td style="text-align: center;">3.902</td>
 <td style="text-align: center;">0.000</td>
 <td style="text-align: center;">***</td>
 </tr>
@@ -834,80 +929,62 @@ Coefficient Details
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">genusApis</td>
 <td style="text-align: center;">0.278</td>
-<td style="text-align: center;">0.502</td>
-<td style="text-align: center;">0.555</td>
-<td style="text-align: center;">0.582</td>
+<td style="text-align: center;">0.507</td>
+<td style="text-align: center;">0.549</td>
+<td style="text-align: center;">0.586</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">genusApis</td>
 <td style="text-align: center;">-0.142</td>
-<td style="text-align: center;">1.445</td>
-<td style="text-align: center;">-0.098</td>
-<td style="text-align: center;">0.922</td>
+<td style="text-align: center;">1.464</td>
+<td style="text-align: center;">-0.097</td>
+<td style="text-align: center;">0.923</td>
 <td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Model 1</td>
-<td style="text-align: center;">genusAugochlorella</td>
-<td style="text-align: center;">1.417</td>
-<td style="text-align: center;">0.563</td>
-<td style="text-align: center;">2.516</td>
-<td style="text-align: center;">0.016</td>
-<td style="text-align: center;">*</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Model 2</td>
-<td style="text-align: center;">genusAugochlorella</td>
-<td style="text-align: center;">1.229</td>
-<td style="text-align: center;">0.515</td>
-<td style="text-align: center;">2.386</td>
-<td style="text-align: center;">0.022</td>
-<td style="text-align: center;">*</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">genusColletes</td>
 <td style="text-align: center;">0.767</td>
-<td style="text-align: center;">0.333</td>
-<td style="text-align: center;">2.303</td>
-<td style="text-align: center;">0.026</td>
+<td style="text-align: center;">0.337</td>
+<td style="text-align: center;">2.277</td>
+<td style="text-align: center;">0.028</td>
 <td style="text-align: center;">*</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">genusColletes</td>
-<td style="text-align: center;">1.172</td>
-<td style="text-align: center;">0.719</td>
-<td style="text-align: center;">1.629</td>
-<td style="text-align: center;">0.112</td>
+<td style="text-align: center;">1.173</td>
+<td style="text-align: center;">0.729</td>
+<td style="text-align: center;">1.609</td>
+<td style="text-align: center;">0.116</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">genusDiadasia</td>
 <td style="text-align: center;">0.575</td>
-<td style="text-align: center;">0.510</td>
-<td style="text-align: center;">1.128</td>
-<td style="text-align: center;">0.266</td>
+<td style="text-align: center;">0.515</td>
+<td style="text-align: center;">1.115</td>
+<td style="text-align: center;">0.271</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">genusDiadasia</td>
-<td style="text-align: center;">1.079</td>
-<td style="text-align: center;">0.907</td>
-<td style="text-align: center;">1.188</td>
-<td style="text-align: center;">0.242</td>
+<td style="text-align: center;">1.078</td>
+<td style="text-align: center;">0.919</td>
+<td style="text-align: center;">1.172</td>
+<td style="text-align: center;">0.249</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">genusHalictus</td>
 <td style="text-align: center;">1.891</td>
-<td style="text-align: center;">0.349</td>
-<td style="text-align: center;">5.425</td>
+<td style="text-align: center;">0.353</td>
+<td style="text-align: center;">5.363</td>
 <td style="text-align: center;">0.000</td>
 <td style="text-align: center;">***</td>
 </tr>
@@ -915,8 +992,8 @@ Coefficient Details
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">genusHalictus</td>
 <td style="text-align: center;">2.458</td>
-<td style="text-align: center;">0.651</td>
-<td style="text-align: center;">3.776</td>
+<td style="text-align: center;">0.659</td>
+<td style="text-align: center;">3.729</td>
 <td style="text-align: center;">0.001</td>
 <td style="text-align: center;">***</td>
 </tr>
@@ -924,90 +1001,81 @@ Coefficient Details
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">genusLasioglossum</td>
 <td style="text-align: center;">0.605</td>
-<td style="text-align: center;">0.342</td>
-<td style="text-align: center;">1.768</td>
-<td style="text-align: center;">0.084</td>
+<td style="text-align: center;">0.346</td>
+<td style="text-align: center;">1.748</td>
+<td style="text-align: center;">0.088</td>
 <td style="text-align: center;">.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">genusLasioglossum</td>
 <td style="text-align: center;">1.121</td>
-<td style="text-align: center;">0.626</td>
-<td style="text-align: center;">1.792</td>
-<td style="text-align: center;">0.081</td>
+<td style="text-align: center;">0.634</td>
+<td style="text-align: center;">1.769</td>
+<td style="text-align: center;">0.085</td>
 <td style="text-align: center;">.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 1</td>
 <td style="text-align: center;">mass_g</td>
 <td style="text-align: center;">6.884</td>
-<td style="text-align: center;">7.543</td>
-<td style="text-align: center;">0.913</td>
-<td style="text-align: center;">0.366</td>
+<td style="text-align: center;">7.630</td>
+<td style="text-align: center;">0.902</td>
+<td style="text-align: center;">0.372</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">mass_g</td>
-<td style="text-align: center;">22.815</td>
-<td style="text-align: center;">23.527</td>
-<td style="text-align: center;">0.970</td>
-<td style="text-align: center;">0.338</td>
+<td style="text-align: center;">22.819</td>
+<td style="text-align: center;">23.831</td>
+<td style="text-align: center;">0.958</td>
+<td style="text-align: center;">0.345</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">mass_g:genusApis</td>
-<td style="text-align: center;">-2.882</td>
-<td style="text-align: center;">29.763</td>
-<td style="text-align: center;">-0.097</td>
-<td style="text-align: center;">0.923</td>
+<td style="text-align: center;">-2.876</td>
+<td style="text-align: center;">30.147</td>
+<td style="text-align: center;">-0.095</td>
+<td style="text-align: center;">0.925</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Model 2</td>
-<td style="text-align: center;">mass_g:genusAugochlorella</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">mass_g:genusColletes</td>
-<td style="text-align: center;">-13.536</td>
-<td style="text-align: center;">29.480</td>
-<td style="text-align: center;">-0.459</td>
-<td style="text-align: center;">0.649</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Model 2</td>
-<td style="text-align: center;">mass_g:genusDiadasia</td>
-<td style="text-align: center;">-26.092</td>
-<td style="text-align: center;">26.109</td>
-<td style="text-align: center;">-0.999</td>
-<td style="text-align: center;">0.324</td>
+<td style="text-align: center;">-13.555</td>
+<td style="text-align: center;">29.861</td>
+<td style="text-align: center;">-0.454</td>
+<td style="text-align: center;">0.653</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Model 2</td>
-<td style="text-align: center;">mass_g:genusHalictus</td>
-<td style="text-align: center;">-30.379</td>
-<td style="text-align: center;">26.781</td>
-<td style="text-align: center;">-1.134</td>
-<td style="text-align: center;">0.264</td>
+<td style="text-align: center;">mass_g:genusDiadasia</td>
+<td style="text-align: center;">-26.095</td>
+<td style="text-align: center;">26.446</td>
+<td style="text-align: center;">-0.987</td>
+<td style="text-align: center;">0.330</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Model 2</td>
+<td style="text-align: center;">mass_g:genusHalictus</td>
+<td style="text-align: center;">-30.419</td>
+<td style="text-align: center;">27.127</td>
+<td style="text-align: center;">-1.121</td>
+<td style="text-align: center;">0.269</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Model 2</td>
 <td style="text-align: center;">mass_g:genusLasioglossum</td>
-<td style="text-align: center;">-33.597</td>
-<td style="text-align: center;">36.584</td>
-<td style="text-align: center;">-0.918</td>
-<td style="text-align: center;">0.364</td>
+<td style="text-align: center;">-33.575</td>
+<td style="text-align: center;">37.057</td>
+<td style="text-align: center;">-0.906</td>
+<td style="text-align: center;">0.371</td>
 <td style="text-align: center;"></td>
 </tr>
 </tbody>
@@ -1018,7 +1086,10 @@ Coefficient Details
 <p>Based on the model summary, we can see that Halictus are predicted to have a longer TBS than other genera. Augochorella are also seen to have a higher predicted TBS.</p>
 <p>Neither model found mass to be significantly associated with TBS, indicated by the p-values for the interaction terms. This tells us that mass is not a good predictor of TBS on this dataset. However, this does not suggest it should be excluded from the model, as ecologically we know that mass is linked to genus.</p>
 <p>Comparing the two models, the presence of temperature as a covariate increases the predicted thermal tolerance at the reference level (shown by a positive coefficient estimate in model 2).</p>
-<p>Citations: Frost, J. Gamma distribution: Uses, parameters &amp; examples - statistics by Jim. https://statisticsbyjim.com/probability/gamma-distribution/</p>
+</section>
+<section id="citations" class="level2">
+<h2 class="anchored" data-anchor-id="citations">Citations</h2>
+<p>Frost, J. Gamma distribution: Uses, parameters &amp; examples - statistics by Jim. https://statisticsbyjim.com/probability/gamma-distribution/</p>
 <p>Gamma distribution | gamma function | properties | PDF. https://www.probabilitycourse.com/chapter4/4_2_4_Gamma_distribution.php</p>
 <p>The Gamma Distribution. R: The gamma distribution. https://stat.ethz.ch/R-manual/R-devel/library/stats/html/GammaDist.html</p>
 <p>GeeksforGeeks. (2025, July 12). Skewness in R programming. https://www.geeksforgeeks.org/r-language/skewness-and-kurtosis-in-r-programming/</p>
@@ -1035,13 +1106,13 @@ Coefficient Details
   author = {Bonnet, Nathalie},
   title = {Predicting {Thermal} {Tolerance} in {California} {Bees} Using
     a {Gamma} {Distribution} {Linear} {Model}},
-  date = {2025-12-04},
+  date = {2025-12-11},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-bonnet2025" class="csl-entry quarto-appendix-citeas" role="listitem">
 Bonnet, Nathalie. 2025. <span>“Predicting Thermal Tolerance in
 California Bees Using a Gamma Distribution Linear Model.”</span>
-December 4, 2025.
+December 11, 2025.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

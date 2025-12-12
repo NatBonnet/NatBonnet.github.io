@@ -2,11 +2,10 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/stats_model/stats_model.html",
       "/posts/ethics_neonics/ethics_neonics.html",
       "/posts/eez_aquaculture/eez_aquaculture.html",
-      "/posts/stats_model/stats_model.html",
-      "/posts/la_fires/la_fires.html",
-      "/posts/first-blog/index.html"
+      "/posts/la_fires/la_fires.html"
     ]
   }
 ]
