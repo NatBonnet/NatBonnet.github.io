@@ -1,7 +1,7 @@
 ---
 title: "Predicting Suitable Aquaculture Zones with EEZ data and Water Conditions"
 format: html
-date: 2025-12-06
+date: 2025-12-12
 categories: [MEDS, Geospatial, R, data-viz]
 code-fold: True
 warning: False
@@ -16,12 +16,12 @@ The following analysis was completed as a homework task for EDS223 in the Bren M
 
 Aquaculture as a means of protein food production is increasingly necessary to support global nutritional demand. Done right, growing seafood above other animal proteins has the potential to reduce carbon emissions from other sources such as cattle (Zhang et al. 2024). Thus, it is critical to understand the complex dynamics that contribute to sustainable aquaculture practices and that might influence site suitability.
 
-## Addressing geospatial complexity in determining suitable areas for aquaculture
+## Determining potential West Coast aquaculture areas  
 Siting aquaculture operations requires identifying marine areas where environmental conditions align with the physiological tolerance of grown species. Conditions are highly variable over space and time, so determining site suitability is a critical geospatial problem. 
 
-This analysis used available oceanographic data to stack multiple environmental variables and identify where their suitable ranges overlap, allowing us to quantify and map overall aquaculture suitability within the U.S. West Coast Exclusive Economic Zone (EEZ) for a given species. The ultimate goal was to develop a reproducible method for assessing the aquaculture potential of different species across EEZ areas.
+This analysis addresses the question of how to use oceanographic temperature and depth data to determine areas in the U.S. West Coast Exclusive Economic Zone (EEZ) where species-specific environmental suitability factors overlap, producing a spatial estimate of overall aquaculture suitability.
 
-
+## Output
 The initial data processing and analyses were conducted based on a given range of suitable temperature and maximum depth conditions for oyster aquaculture. The final workflow includes a function that transforms inputs of maximum and minimum temperature and depth conditions for any given species into a map of total suitable area in each WC EEZ, and the name of the most suitable region. 
 
 ## Data access and information
@@ -150,7 +150,6 @@ depth_crop_res = resample(depth_crop, mean_sst)
 You can easily check if all three necessary elements match by seeing if raster layers can stack, confirming that the CRS, extent, and resolution are the same.
 
 ```{r}
-#| output: false
 
 # Check that bathymetry layer can stack with mean_sst
 if (crs(depth_crop_res) == crs(mean_sst) &
