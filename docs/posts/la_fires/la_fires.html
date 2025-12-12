@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nathalie Bonnet">
-<meta name="dcterms.date" content="2025-12-03">
+<meta name="dcterms.date" content="2025-12-12">
 <meta name="description" content="Using Landsat data to visualize the extent of wildfires through true and false color images, and investigating socioeconomics in impacted areas.">
 
-<title>Visualizing the 2025 Southern California Wildfires – Nathalie Bonnet</title>
+<title>Nathalie Bonnet - Visualizing the 2025 Southern California Wildfires</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,11 +20,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -51,17 +49,47 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -69,30 +97,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../images/favicon_mask.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-98a40c22bfadfb53c291428ca4a1a9d5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -101,62 +121,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
+      <div class="navbar-brand-container">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/favicon_mask.png" alt="" class="navbar-logo light-content">
-    <img src="../../images/favicon_mask.png" alt="" class="navbar-logo dark-content">
+    <img src="../../images/favicon_mask.png" alt="" class="navbar-logo">
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../media.html"> 
-<span class="menu-text">Media</span></a>
+    <a class="nav-link" href="../../media.html">
+ <span class="menu-text">Media</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../posts.html"> 
-<span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="../../posts.html">
+ <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/NatBonnet/NatBonnet.github.io"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/NatBonnet/NatBonnet.github.io"><i class="bi bi-github" role="img">
 </i> 
-<span class="menu-text"></span></a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
+              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -178,27 +193,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                   </div>
   </div>
     
-  <div class="quarto-title-meta-author column-page-left">
+  <div class="quarto-title-meta-author">
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-heading">Affiliation</div>
     
       <div class="quarto-title-meta-contents">
-      <p class="author"><a href="https://natbonnet.github.io/">Nathalie Bonnet</a> <a href="https://orcid.org/0009-0008-2146-4871" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+      <a href="https://natbonnet.github.io/">Nathalie Bonnet</a> <a href="https://orcid.org/0009-0008-2146-4871" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
     </div>
-    <div class="quarto-title-meta-contents">
+      <div class="quarto-title-meta-contents">
           <p class="affiliation">
               UCSB Bren MEDS
             </p>
         </div>
-    </div>
+      </div>
 
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
         
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 3, 2025</p>
+        <p class="date">December 12, 2025</p>
       </div>
     </div>
     
@@ -215,7 +230,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#purpose-of-analysis" id="toc-purpose-of-analysis" class="nav-link" data-scroll-target="#purpose-of-analysis">Purpose of analysis</a></li>
+  <li><a href="#highlights-of-analysis" id="toc-highlights-of-analysis" class="nav-link" data-scroll-target="#highlights-of-analysis">Highlights of Analysis</a></li>
   <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data sources</a>
   <ul class="collapse">
   <li><a href="#landsat-8-satellite-data" id="toc-landsat-8-satellite-data" class="nav-link" data-scroll-target="#landsat-8-satellite-data">Landsat 8 Satellite Data</a></li>
@@ -240,20 +256,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\images/palisade_fire2.jpg" class="img-fluid figure-img"></p>
-<figcaption>Photo by DAVID SWANSON/AFP via Getty Images</figcaption>
+<p><img src="../../images/palisade_fire2.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Los Angeles County personel dropping water onto Palisades fire on January 7, 2025. Photo was accessed originally from CNN (https://www.cnn.com/2025/08/06/us/los-angeles-wildfires-440-excess-deaths-study), provided by DAVID SWANSON/AFP via Getty Images</figcaption><p></p>
 </figure>
 </div>
 <section id="background" class="level2">
 <h2 class="anchored" data-anchor-id="background">Background</h2>
 <p>The fire hazard conditions in Los Angeles County on January 7, 2025 were a coalescence of drought brought on by months without rainfall and Santa Ana winds that ripped through the dry brush in the Santa Monica mountains and Eaton Canyon. Fires in the Pacific Palisades and Eaton areas began to burn and spread quickly that morning due to the wind conditions, and several other fires burning strained fire response resources. The Los Angeles County Eaton and Palisades Fires After-Action Reviews highlighted that the county’s issuance of evacuation warnings was complicated by fire conditions and the speed capability of public warnings systems. This emphasized issues with the timeliness of evacuation orders issued by the county. The fires resulted in 31 deaths total reported by the county, and affected more than 43,000 residents.</p>
 </section>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>The scale of the Palisades and Eaton fires necessitated geospatial analysis to determine their effects. The goal of this post is to explore data pertaining to the Los Angeles County areas affected by the Palisades and Eaton Fires, and produce visualizations that aid in interpretting human and environmnental impact. These analyses were done in Python as work for EDS220 in the Bren MEDS program.</p>
+<section id="purpose-of-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="purpose-of-analysis">Purpose of analysis</h2>
+<p>The scale of the Palisades and Eaton fires necessitated geospatial analysis to determine their effects. The goal of this post is to explore data pertaining to the Los Angeles County areas affected by the Palisades and Eaton Fires, and produce visualizations that aid in interpretting human and environmnental impact. These analyses were done in Python as work for EDS220 in the Bren MEDS program. <a href="https://github.com/NatBonnet/eds220-la-fires-eji">github: eds220-la-fires-eji</a></p>
+</section>
+<section id="highlights-of-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="highlights-of-analysis">Highlights of Analysis</h2>
+<ul>
+<li>This analysis demonstrates use of the SpatioTemporal Asser Catalog (STAC). This catalog is an open access data archive with geospatial data available through various catalogs. We accessed the Microsoft Planetary Computer STAC API for items (GeoJSON features) that represented our spatial and temporal areas of interest.</li>
+<li>data retrieved from the STAC API search were unpacked as <code>xarray</code>s and processed using methods from <code>rioxarray</code>. These features allow metadata inclusion in the data.</li>
+<li>The intersection between natural disasters and environmental injustice was explored by accessing socioeconomic data from the Environmental Justice Index and including it for visualization and interpretation purposes.</li>
+</ul>
 </section>
 <section id="data-sources" class="level2">
 <h2 class="anchored" data-anchor-id="data-sources">Data sources</h2>
@@ -275,10 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="setup-code-and-preliminary-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="setup-code-and-preliminary-cleaning">Setup code and preliminary cleaning</h2>
-<div id="36918ab8" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -290,19 +311,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_scalebar.scalebar <span class="im">import</span> ScaleBar</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in datasets</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>landsat <span class="op">=</span> xr.open_dataset(<span class="st">'data/landsat8-2025-02-23-palisades-eaton.nc'</span>, engine<span class="op">=</span><span class="st">'netcdf4'</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>fp <span class="op">=</span> os.path.join(<span class="st">'data'</span>, <span class="st">'California_Historic_Fire_Perimeters_-247493000743518952'</span>, <span class="st">'California_Fire_Perimeters_(1950+).shp'</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>fires <span class="op">=</span> gpd.read_file(fp)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>fp<span class="op">=</span> os.path.join(<span class="st">'data'</span>, <span class="st">'EJI_2024_United_States'</span>, <span class="st">'EJI_2024_United_States.gdb'</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>eji <span class="op">=</span> gpd.read_file(fp)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>fires.columns <span class="op">=</span> fires.columns.<span class="bu">str</span>.lower()</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>fires_crs <span class="op">=</span> fires.crs</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>palisade_perimeter <span class="op">=</span> fires[(fires[<span class="st">'fire_name'</span>] <span class="op">==</span> <span class="st">'PALISADES'</span>) <span class="op">&amp;</span> (fires[<span class="st">'year_'</span>] <span class="op">==</span> <span class="dv">2025</span>)]</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>eaton_perimeter <span class="op">=</span> fires[(fires[<span class="st">'fire_name'</span>] <span class="op">==</span> <span class="st">'EATON'</span>) <span class="op">&amp;</span> (fires[<span class="st">'year_'</span>] <span class="op">==</span> <span class="dv">2025</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>fp <span class="op">=</span> os.path.join(<span class="st">'data'</span>, <span class="st">'landsat8-2025-02-23-palisades-eaton.nc'</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>landsat <span class="op">=</span> xr.open_dataset(fp, engine<span class="op">=</span><span class="st">'netcdf4'</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>fp <span class="op">=</span> os.path.join(<span class="st">'data'</span>, <span class="st">'California_Historic_Fire_Perimeters_-247493000743518952'</span>, <span class="st">'California_Fire_Perimeters_(1950+).shp'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>fires <span class="op">=</span> gpd.read_file(fp)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>fp<span class="op">=</span> os.path.join(<span class="st">'data'</span>, <span class="st">'EJI_2024_United_States'</span>, <span class="st">'EJI_2024_United_States.gdb'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>eji <span class="op">=</span> gpd.read_file(fp)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up column names in fire data</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>fires.columns <span class="op">=</span> fires.columns.<span class="bu">str</span>.lower()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the CRS of the fires data</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>fires_crs <span class="op">=</span> fires.crs</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to individual fire perimeters for Palisades and Eatons</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>palisade_perimeter <span class="op">=</span> fires[(fires[<span class="st">'fire_name'</span>] <span class="op">==</span> <span class="st">'PALISADES'</span>) <span class="op">&amp;</span> (fires[<span class="st">'year_'</span>] <span class="op">==</span> <span class="dv">2025</span>)]</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>eaton_perimeter <span class="op">=</span> fires[(fires[<span class="st">'fire_name'</span>] <span class="op">==</span> <span class="st">'EATON'</span>) <span class="op">&amp;</span> (fires[<span class="st">'year_'</span>] <span class="op">==</span> <span class="dv">2025</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The python libraries needed to process the data described above were <code>numpy</code>, <code>pandas</code>, <code>geopandas</code>, <code>xarray</code>, <code>rioxarray</code>, <code>matplotlib</code>, <code>contextily</code>, and <code>ScaleBar</code> from <code>matplotlib_scalebar.scalebar</code> to produce the full final visualization.</p>
 <p>Fire data were filtered to contain only the Palisades and Eaton fires from 2025, and the column names were standardized. We needed to combine datasets in order to extract information from multiple at once, so in preliminary analysis it was important to know what the coordinate reference system (CRS) was of each dataset. The fire data had the CRS EPSG:3857.</p>
@@ -310,16 +336,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="landsat-data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="landsat-data-processing">Landsat data processing</h2>
-<div id="7e822528" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find CRS of spatial reference in landsat data itself</span></span>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find CRS of spatial reference in landsat data itself</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>crs <span class="op">=</span> landsat.spatial_ref.crs_wkt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the crs of landsat equal to that of the spatial reference</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>landsat.rio.write_crs(crs, inplace<span class="op">=</span> <span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the CRSof landsat equal to that of the spatial reference</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>landsat.rio.write_crs(crs, inplace<span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
+
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -701,21 +725,21 @@ Data variables:
     green        (y, x) float32 16MB ...
     blue         (y, x) float32 16MB ...
     nir08        (y, x) float32 16MB ...
-    swir22       (y, x) float32 16MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-b823a996-d58b-4b6e-a3be-e35cde9ed2b9" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-b823a996-d58b-4b6e-a3be-e35cde9ed2b9" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">y</span>: 1418</li><li><span class="xr-has-index">x</span>: 2742</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-6ebf1a64-971b-4e47-9a07-3d3d01179fe9" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-6ebf1a64-971b-4e47-9a07-3d3d01179fe9" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">3.799e+06 3.799e+06 ... 3.757e+06</div><input id="attrs-7504a0cd-5ca3-4d78-8a15-0283428c276e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7504a0cd-5ca3-4d78-8a15-0283428c276e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7327e812-33d1-4a34-ac95-a3a64c600bc4" class="xr-var-data-in" type="checkbox"><label for="data-7327e812-33d1-4a34-ac95-a3a64c600bc4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>metre</dd><dt><span>resolution :</span></dt><dd>-30.0</dd><dt><span>crs :</span></dt><dd>EPSG:32611</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>y coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_y_coordinate</dd></dl></div><div class="xr-var-data"><pre>array([3799050., 3799020., 3798990., ..., 3756600., 3756570., 3756540.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">3.344e+05 3.344e+05 ... 4.166e+05</div><input id="attrs-49a5fb52-e90b-41aa-98d1-51cdbdde804d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-49a5fb52-e90b-41aa-98d1-51cdbdde804d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3e5fe872-99e3-4866-9b26-3e669b0ab804" class="xr-var-data-in" type="checkbox"><label for="data-3e5fe872-99e3-4866-9b26-3e669b0ab804" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>metre</dd><dt><span>resolution :</span></dt><dd>30.0</dd><dt><span>crs :</span></dt><dd>EPSG:32611</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>x coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_x_coordinate</dd></dl></div><div class="xr-var-data"><pre>array([334410., 334440., 334470., ..., 416580., 416610., 416640.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>time</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ed44d3bc-8f92-469d-b9b3-2d58ee1bf810" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-ed44d3bc-8f92-469d-b9b3-2d58ee1bf810" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9db10d40-bdbe-4c19-9eca-304c97281993" class="xr-var-data-in" type="checkbox"><label for="data-9db10d40-bdbe-4c19-9eca-304c97281993" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[1 values with dtype=datetime64[ns]]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-4d818426-2a92-44a2-998c-780a2183bc8b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4d818426-2a92-44a2-998c-780a2183bc8b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4f2d51b8-8704-46cd-97c9-bf256cdc84fc" class="xr-var-data-in" type="checkbox"><label for="data-4f2d51b8-8704-46cd-97c9-bf256cdc84fc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>PROJCS["WGS 84 / UTM zone 11N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-117],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32611"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>projected_crs_name :</span></dt><dd>WGS 84 / UTM zone 11N</dd><dt><span>grid_mapping_name :</span></dt><dd>transverse_mercator</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>0.0</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>-117.0</dd><dt><span>false_easting :</span></dt><dd>500000.0</dd><dt><span>false_northing :</span></dt><dd>0.0</dd><dt><span>scale_factor_at_central_meridian :</span></dt><dd>0.9996</dd><dt><span>spatial_ref :</span></dt><dd>PROJCS["WGS 84 / UTM zone 11N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-117],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32611"]]</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-9fe5e371-8320-495a-8fd0-6b359577d4ea" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-9fe5e371-8320-495a-8fd0-6b359577d4ea" class="xr-section-summary">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>red</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-43698c40-65bd-41cc-bef4-5928bd7e6186" class="xr-var-attrs-in" type="checkbox"><label for="attrs-43698c40-65bd-41cc-bef4-5928bd7e6186" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-80495e20-43f4-4c4f-ab46-2db58d175fe9" class="xr-var-data-in" type="checkbox"><label for="data-80495e20-43f4-4c4f-ab46-2db58d175fe9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>green</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-79e049dd-a35b-4da5-a672-ed5d912b03fa" class="xr-var-attrs-in" type="checkbox"><label for="attrs-79e049dd-a35b-4da5-a672-ed5d912b03fa" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bc701bea-bdfb-4274-aa02-270d9ad1d454" class="xr-var-data-in" type="checkbox"><label for="data-bc701bea-bdfb-4274-aa02-270d9ad1d454" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>blue</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f92667e3-4ee6-4a25-8a6a-8974365c4c32" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f92667e3-4ee6-4a25-8a6a-8974365c4c32" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3d38972b-aa9f-4cb5-971d-f3c636175a0d" class="xr-var-data-in" type="checkbox"><label for="data-3d38972b-aa9f-4cb5-971d-f3c636175a0d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>nir08</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-bbce5644-1b7d-4f6a-8a68-b2620b41e9d5" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bbce5644-1b7d-4f6a-8a68-b2620b41e9d5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-aab7526e-7160-4eaa-b9b6-faf468df58d4" class="xr-var-data-in" type="checkbox"><label for="data-aab7526e-7160-4eaa-b9b6-faf468df58d4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>swir22</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-cf71955c-27a1-49fb-8328-e55f15d2f51b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-cf71955c-27a1-49fb-8328-e55f15d2f51b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fb7c3ad6-e100-4f24-8973-b69bf09172d6" class="xr-var-data-in" type="checkbox"><label for="data-fb7c3ad6-e100-4f24-8973-b69bf09172d6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-f12064bc-d41e-41c8-a59a-c5061a94f710" class="xr-section-summary-in" type="checkbox"><label for="section-f12064bc-d41e-41c8-a59a-c5061a94f710" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>y</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-620c7f02-dbe1-4265-bd66-2a9ef1efdb1a" class="xr-index-data-in" type="checkbox"><label for="index-620c7f02-dbe1-4265-bd66-2a9ef1efdb1a" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([3799050.0, 3799020.0, 3798990.0, 3798960.0, 3798930.0, 3798900.0,
+    swir22       (y, x) float32 16MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-5f225803-d6fe-4d25-ac45-d277386b0b77" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-5f225803-d6fe-4d25-ac45-d277386b0b77" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">y</span>: 1418</li><li><span class="xr-has-index">x</span>: 2742</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-1313b15c-e34e-48ec-886c-7e5f430929ff" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-1313b15c-e34e-48ec-886c-7e5f430929ff" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">3.799e+06 3.799e+06 ... 3.757e+06</div><input id="attrs-4f532816-97da-4927-b689-f444312d76f0" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4f532816-97da-4927-b689-f444312d76f0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-669ca438-3819-47cc-83f9-3ab824ea4ae2" class="xr-var-data-in" type="checkbox"><label for="data-669ca438-3819-47cc-83f9-3ab824ea4ae2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>metre</dd><dt><span>resolution :</span></dt><dd>-30.0</dd><dt><span>crs :</span></dt><dd>EPSG:32611</dd><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>y coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_y_coordinate</dd></dl></div><div class="xr-var-data"><pre>array([3799050., 3799020., 3798990., ..., 3756600., 3756570., 3756540.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">3.344e+05 3.344e+05 ... 4.166e+05</div><input id="attrs-e1020c0d-7d8f-43be-a920-c4c06262a1f4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e1020c0d-7d8f-43be-a920-c4c06262a1f4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b4532887-8f6a-4035-8504-37f8875c7e9d" class="xr-var-data-in" type="checkbox"><label for="data-b4532887-8f6a-4035-8504-37f8875c7e9d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>metre</dd><dt><span>resolution :</span></dt><dd>30.0</dd><dt><span>crs :</span></dt><dd>EPSG:32611</dd><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>x coordinate of projection</dd><dt><span>standard_name :</span></dt><dd>projection_x_coordinate</dd></dl></div><div class="xr-var-data"><pre>array([334410., 334440., 334470., ..., 416580., 416610., 416640.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>time</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-d19f81f0-b47c-4bd4-9989-56107f22fd30" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d19f81f0-b47c-4bd4-9989-56107f22fd30" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-97343baa-cb24-417a-98a8-e521f86e8ba1" class="xr-var-data-in" type="checkbox"><label for="data-97343baa-cb24-417a-98a8-e521f86e8ba1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[1 values with dtype=datetime64[ns]]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-244d9a9b-a7ea-4f00-bae1-4b34b6ed3ee2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-244d9a9b-a7ea-4f00-bae1-4b34b6ed3ee2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0ebfb0a9-b3ba-4318-8b13-2ad16f9b08b9" class="xr-var-data-in" type="checkbox"><label for="data-0ebfb0a9-b3ba-4318-8b13-2ad16f9b08b9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>PROJCS["WGS 84 / UTM zone 11N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-117],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32611"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>projected_crs_name :</span></dt><dd>WGS 84 / UTM zone 11N</dd><dt><span>grid_mapping_name :</span></dt><dd>transverse_mercator</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>0.0</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>-117.0</dd><dt><span>false_easting :</span></dt><dd>500000.0</dd><dt><span>false_northing :</span></dt><dd>0.0</dd><dt><span>scale_factor_at_central_meridian :</span></dt><dd>0.9996</dd><dt><span>spatial_ref :</span></dt><dd>PROJCS["WGS 84 / UTM zone 11N",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-117],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32611"]]</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-a4a7b9ae-b4a7-420f-8fe8-74921069fa45" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-a4a7b9ae-b4a7-420f-8fe8-74921069fa45" class="xr-section-summary">Data variables: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>red</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f4b61df8-de89-43a7-8189-268c14bde303" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f4b61df8-de89-43a7-8189-268c14bde303" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d1b89e07-507a-4e44-b32a-baf1f499278a" class="xr-var-data-in" type="checkbox"><label for="data-d1b89e07-507a-4e44-b32a-baf1f499278a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>green</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-617ad700-8a96-4d3f-b0fe-9d447a82d8ad" class="xr-var-attrs-in" type="checkbox"><label for="attrs-617ad700-8a96-4d3f-b0fe-9d447a82d8ad" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e3fb8f80-be94-4119-8ee2-e50cf805e49e" class="xr-var-data-in" type="checkbox"><label for="data-e3fb8f80-be94-4119-8ee2-e50cf805e49e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>blue</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-935eaadb-8edc-48e3-a3cd-cbc2f10d8979" class="xr-var-attrs-in" type="checkbox"><label for="attrs-935eaadb-8edc-48e3-a3cd-cbc2f10d8979" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1dbb8cc7-85dc-47f1-9ddd-d51d4414c3d1" class="xr-var-data-in" type="checkbox"><label for="data-1dbb8cc7-85dc-47f1-9ddd-d51d4414c3d1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>nir08</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-671973a2-96ea-4ccf-8838-31bda5a7a5f8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-671973a2-96ea-4ccf-8838-31bda5a7a5f8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a918ea28-38ce-49c2-b3a4-82e26590d29c" class="xr-var-data-in" type="checkbox"><label for="data-a918ea28-38ce-49c2-b3a4-82e26590d29c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>swir22</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a3c8d089-e80d-4c3d-9ac1-e1b63fa8e438" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a3c8d089-e80d-4c3d-9ac1-e1b63fa8e438" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-46eb4b91-2e4c-469f-89f9-1cf9265895a1" class="xr-var-data-in" type="checkbox"><label for="data-46eb4b91-2e4c-469f-89f9-1cf9265895a1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class="xr-var-data"><pre>[3888156 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-18d8e4bf-4cc0-45cb-9985-5d9735e6c4ff" class="xr-section-summary-in" type="checkbox"><label for="section-18d8e4bf-4cc0-45cb-9985-5d9735e6c4ff" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>y</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-98840f80-e21d-4373-877c-3bfa9110b86f" class="xr-index-data-in" type="checkbox"><label for="index-98840f80-e21d-4373-877c-3bfa9110b86f" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([3799050.0, 3799020.0, 3798990.0, 3798960.0, 3798930.0, 3798900.0,
        3798870.0, 3798840.0, 3798810.0, 3798780.0,
        ...
        3756810.0, 3756780.0, 3756750.0, 3756720.0, 3756690.0, 3756660.0,
        3756630.0, 3756600.0, 3756570.0, 3756540.0],
-      dtype='float64', name='y', length=1418))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>x</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-71716da2-2420-427b-b615-1017f8d8a913" class="xr-index-data-in" type="checkbox"><label for="index-71716da2-2420-427b-b615-1017f8d8a913" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([334410.0, 334440.0, 334470.0, 334500.0, 334530.0, 334560.0, 334590.0,
+      dtype='float64', name='y', length=1418))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>x</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-6db702be-9d4c-4b6b-abcd-5f52f3a7b3e5" class="xr-index-data-in" type="checkbox"><label for="index-6db702be-9d4c-4b6b-abcd-5f52f3a7b3e5" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([334410.0, 334440.0, 334470.0, 334500.0, 334530.0, 334560.0, 334590.0,
        334620.0, 334650.0, 334680.0,
        ...
        416370.0, 416400.0, 416430.0, 416460.0, 416490.0, 416520.0, 416550.0,
        416580.0, 416610.0, 416640.0],
-      dtype='float64', name='x', length=2742))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d943b741-d1dd-4eec-81fc-f13c6fd10212" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-d943b741-d1dd-4eec-81fc-f13c6fd10212" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+      dtype='float64', name='x', length=2742))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-6897722f-8df6-4c42-8db3-6c43c3832d4e" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-6897722f-8df6-4c42-8db3-6c43c3832d4e" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
-<p>Our above output displays that the landsat NetCDF contains dimensions, variables, indexes, attributes.</p>
-<p>Because of the way NetCDFs are structured, there is not a CRS explicitly contained by the <code>.nc</code> itself. If you run <code>landsat.rio.crs</code> to check the CRS of the dataset, it will return ‘None’. This must be pulled out of the spatial reference of the data itself. The crs is then assigned to the landsat data object.</p>
+<p>Our above output displays that the <code>landsat</code> NetCDF contains dimensions, variables, indexes, attributes.</p>
+<p>Because of the way NetCDFs are structured, there is not a CRS explicitly contained by the <code>.nc</code> itself. If you run <code>landsat.rio.crs</code> to check the CRS of the dataset, it will return ‘None’. This must be pulled out of the spatial reference of the data itself. The CRS is then assigned to the <code>landsat</code> data object.</p>
 </section>
 <section id="using-landsat-data-to-create-a-true-color-image" class="level2">
 <h2 class="anchored" data-anchor-id="using-landsat-data-to-create-a-true-color-image">Using Landsat data to create a true color image</h2>
@@ -724,28 +748,21 @@ Data variables:
 <p>We achieve this by calling color bands from landsat into place and plotting the data as a <code>numpy</code> array as an image on a 2D raster. Doing this with the same code shown in the image below results in two warning messages.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../..\images/preliminary_true_color_errors.png" class="img-fluid figure-img"></p>
-<figcaption>Warnings from initial plotting attempt</figcaption>
+<p><img src="../../images/preliminary_true_color_errors.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Warnings from initial plotting attempt</figcaption><p></p>
 </figure>
 </div>
 <p>There are two issues being indicated here. The first issue points to the reflectance data exceeding the valid range. This occurs often due to cloud cover compressing data due to high reflectance data being included. We address this by adding the argument <code>robust = True</code> to our plot. This parameter explicitly provides the colormap range with the 2nd and 98th percentiles rather than the most extreme values contained.</p>
 <p>The second issue is a bit less clear, but addresses that some data is invalid. This suggests there may be NA values contained in our array. We can easily replace NA values with 0 so they are displayed with the 0 reflectance data.</p>
 <p>These fixes will render the plot without error, producing a true color image of Los Angeles county. In this image we see large swaths of brown discoloration which are the fire scars from the Palisades and Eaton fires. We subsequently used a different technique to visualize this difference in vegetation more clearly.</p>
-<div id="7fb575d2" class="cell" data-execution_count="4">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill missing values in landsat data</span></span>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill missing values in landsat data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>landsat <span class="op">=</span> landsat.fillna(<span class="dv">0</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rerender plot without warnings</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.show(landsat[[<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>]].to_array().plot.imshow(robust <span class="op">=</span> <span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.show(landsat[[<span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"blue"</span>]].to_array().plot.imshow(robust <span class="op">=</span> <span class="va">True</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="la_fires_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="la_fires_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -759,10 +776,8 @@ Data variables:
 <p>The boundary of the perimeter data is plotted onto the false color image using <code>boundary.plot()</code> in <code>matplotlib</code>. To create a cleaner looking map, I opted to remove axis ticks and labels in favor of a scalebar and compass arrow. To access the scalebar, I accessed the package ‘ScaleBar’ from <code>matplotlib_scalebar.scalebar</code>. With this function, the resolution, units, and location of the scalebar on the map can be specified. The Landsat data contains image resolution of 1 meter, so we use those parameters here.</p>
 <p>The <code>ax.annotate</code> function can be used to initialize and add a compass arrow to a specified location on the map.</p>
 <p>Similarly, fire location labels were added using <code>fig.text</code> options to specify labels and their positions.</p>
-<div id="f8c0db9b" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change CRS of fires data to match that of landsat data</span></span>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change CRS of fires data to match that of landsat data</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>palisade_perimeter <span class="op">=</span> palisade_perimeter.to_crs(crs <span class="op">=</span> landsat.rio.crs)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>eaton_perimeter <span class="op">=</span> eaton_perimeter.to_crs(crs <span class="op">=</span> landsat.rio.crs)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -824,26 +839,19 @@ Data variables:
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">""</span>)  </span>
 <span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">""</span>)  </span>
 <span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="la_fires_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="la_fires_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
 <section id="socioeconomic-impacts" class="level2">
 <h2 class="anchored" data-anchor-id="socioeconomic-impacts">Socioeconomic impacts</h2>
 <p>Based on the map highlighting burned areas, it is apparent that the Palisades and Eaton fires had a large scale impact on LA County residents. To highlight challenges and possible environmental injustices as a result of the fires, EJI data was used to identify disparities between residents in Pacific Palisades and Eaton Canyon.</p>
-<p>To combine fire perimeter data with EJI data, the CRS of EJI was transformed to match the perimeter datasets. A spatial join for both fires was performed using the default inner join on a geopandas.geoDataFrame.</p>
+<p>To combine fire perimeter data with EJI data, the CRS of EJI was transformed to match the perimeter datasets. A spatial join for both fires was performed using the default inner join on a <code>geopandas.geoDataFrame</code>.</p>
 <p>From there, the extent of the joined data frame was clipped to the exact perimeter of the fires so that only EJI variables within the fire area were being visualized.</p>
-<div id="46e10e91" class="cell" data-execution_count="23">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eji <span class="op">=</span> eji.to_crs(crs <span class="op">=</span> palisade_perimeter.crs)</span>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eji <span class="op">=</span> eji.to_crs(crs <span class="op">=</span> palisade_perimeter.crs)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial join</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>palisade_soc <span class="op">=</span> gpd.sjoin(left_df <span class="op">=</span> eji, </span>
@@ -858,17 +866,14 @@ Data variables:
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Clip the census tracts overlapping palisades to the boundary of the fire</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>palisade_clip <span class="op">=</span> gpd.clip(eji, palisade_perimeter)</span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>eaton_clip <span class="op">=</span> gpd.clip(eji, eaton_perimeter)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>eaton_clip <span class="op">=</span> gpd.clip(eji, eaton_perimeter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="verify-clipped-data-matches-known-fire-perimeters" class="level2">
 <h2 class="anchored" data-anchor-id="verify-clipped-data-matches-known-fire-perimeters">Verify clipped data matches known fire perimeters</h2>
 <p>The false color image from Landsat imagery showed real time fire scar area that was verified by the reported fire perimeters. We can check that the EJI joined nd clipped data matches the same extent, and position the fires on a given basemap to see the fires in relation to map components like you might see on Google Maps.</p>
-<div id="cf2f67df" class="cell" data-execution_count="26">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">12</span>))</span>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">12</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>palisade_clip.plot(ax<span class="op">=</span>ax, color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -881,14 +886,9 @@ Data variables:
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>ax.axis(<span class="st">'off'</span>)</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="la_fires_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
+<p><img src="la_fires_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>To render the basemap, the contextily library containing open source basemaps was used. ’OpenStreetMap.Mapnik` was the specified package used. Here is is again necessary to set the CRS to be the same as the clipped data.</p>
@@ -896,58 +896,62 @@ Data variables:
 <section id="visualizing-the-percent-of-residents-living-in-poverty-impacted" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-percent-of-residents-living-in-poverty-impacted">Visualizing the percent of residents living in poverty impacted</h2>
 <p>Several variables contained by EJI 2024 data could be investigated as factors that might impede fire recovery, or have contributed to a worse social impact in certain communities. The variable I chose to visualize from EJI was the percentage of residents living under the poverty line in the burned areas. This seemed like an obvious barrier to rebuilding property and possessions.</p>
-<div id="c30f28ba" class="cell" data-execution_count="24">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># UPDATE WITH YOU EJI VARIABLE FROM STEP 1</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>eji_variable <span class="op">=</span> <span class="st">'E_POV200'</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Find common min/max for legend range</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>vmin <span class="op">=</span> <span class="bu">min</span>(palisade_clip[eji_variable].<span class="bu">min</span>(), eaton_clip[eji_variable].<span class="bu">min</span>())</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>vmax <span class="op">=</span> <span class="bu">max</span>(palisade_clip[eji_variable].<span class="bu">max</span>(), eaton_clip[eji_variable].<span class="bu">max</span>())</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot census tracts within Palisades perimeter</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>palisade_clip.plot(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span> eji_variable,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax,</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax1,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Palisades Fire Census Overlap'</span>)</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>ax1.axis(<span class="st">'off'</span>)</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot census tracts within Eaton perimeter</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>eaton_clip.plot(</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span>eji_variable,</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax,</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax2,</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Eaton Fire Census Overlap'</span>)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>ax2.axis(<span class="st">'off'</span>)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add overall title</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Percent of Population in Poverty - Fire Areas Comparison'</span>)</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Add shared colorbar at the bottom</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>sm <span class="op">=</span> plt.cm.ScalarMappable(norm<span class="op">=</span>plt.Normalize(vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax))</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>cbar_ax <span class="op">=</span> fig.add_axes([<span class="fl">0.25</span>, <span class="fl">0.08</span>, <span class="fl">0.5</span>, <span class="fl">0.02</span>])  <span class="co"># [left, bottom, width, height]</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> fig.colorbar(sm, cax<span class="op">=</span>cbar_ax, orientation<span class="op">=</span><span class="st">'horizontal'</span>)</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>cbar.set_label(<span class="st">'PCTPOV'</span>)</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+<p>To plot the clipped Palisade and Eaton fire perimeter data by the EJI variable of interest, the column was called from the clipped perimeter data including EJI information. The name of the variable of interest was accessible via the EJI metadata. Percent living in poverty was specified by the ‘E_POV200’ column. The name of the variable to search by was stored as an object to use in plotting.</p>
+<p>In order to coerce the visual output so that both area plots have the same color bar, the minimum and maximum values of percent in poverty were defined for each area, and the absolute minimum and maximum values from the two were used to set the color bar range in plotting.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define EJI variable of choice to fill corresponding area values with</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>eji_variable <span class="op">=</span> <span class="st">'E_POV200'</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the minimum and maxium for the overall legend so all values are shared across plots</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>vmin <span class="op">=</span> <span class="bu">min</span>(palisade_clip[eji_variable].<span class="bu">min</span>(), eaton_clip[eji_variable].<span class="bu">min</span>())</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>vmax <span class="op">=</span> <span class="bu">max</span>(palisade_clip[eji_variable].<span class="bu">max</span>(), eaton_clip[eji_variable].<span class="bu">max</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The plots for the clipped and joined data from each fire were plotted together on the same axis with the overall minimum and maximum values previously defined to make sure that colors would correspond to the same values on each map. Then a custom color bar was created in a new axis for both plots using the scale defined before.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize plot</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot census tracts within Palisades perimeter</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>palisade_clip.plot(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span> eji_variable,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    cmap <span class="op">=</span> <span class="st">'coolwarm'</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax1)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Add unique title for Palisades plot</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Palisades Fire Census Overlap'</span>, fontsize <span class="op">=</span> <span class="dv">18</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>ax1.axis(<span class="st">'off'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot census tracts within Eaton perimeter</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>eaton_clip.plot(</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span>eji_variable,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    cmap <span class="op">=</span> <span class="st">'coolwarm'</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax2)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Add unqiue title for Eaton plot</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Eaton Fire Census Overlap'</span>, fontsize <span class="op">=</span> <span class="dv">18</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>ax2.axis(<span class="st">'off'</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Add overall title</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">'Percent of Population in Poverty - Fire Areas Comparison'</span>, fontsize <span class="op">=</span> <span class="dv">25</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Add shared colorbar at the bottom</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>sm <span class="op">=</span> plt.cm.ScalarMappable(norm<span class="op">=</span>plt.Normalize(vmin<span class="op">=</span>vmin, vmax<span class="op">=</span>vmax), cmap <span class="op">=</span> <span class="st">'coolwarm'</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="co"># [left, bottom, width, height]</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>cbar_ax <span class="op">=</span> fig.add_axes([<span class="fl">0.25</span>, <span class="fl">0.05</span>, <span class="fl">0.5</span>, <span class="fl">0.03</span>]) </span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the position of the custom color bar</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> fig.colorbar(sm, cax<span class="op">=</span>cbar_ax, orientation<span class="op">=</span><span class="st">'horizontal'</span>) </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the color bar itself</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>cbar.set_label(<span class="st">'</span><span class="sc">% r</span><span class="st">esidents under poverty line'</span>, fontsize <span class="op">=</span> <span class="dv">16</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="la_fires_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<p><img src="la_fires_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</div>
-<p>Plotting the clipped Palisade and Eaton fire perimeter data including EJI columns, the name of the variable of interest was accessible via the EJI metadata. Percent living in poverty was specified by the ‘E_POV200’ column. This was called in the plot to color census tracts in the fire area by mean percent in poverty. To standardize the colorbar being used to classify the data in each dataset, a custom shared scalebar was added by normalizing the scale bar values from the plot and specifying the bottom position on the overall axis.</p>
 </section>
 <section id="interpretation-and-discussion" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation-and-discussion">Interpretation and discussion</h2>
@@ -959,441 +963,164 @@ Data variables:
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<p>After-action review of alert notification systems … - lacounty. (n.d.). https://file.lacounty.gov/SDSInter/bos/supdocs/207915.pdf</p>
+<p>After-action review of alert notification systems … - lacounty. https://file.lacounty.gov/SDSInter/bos/supdocs/207915.pdf</p>
 <p>County of Los Angeles. (2025, September 25). LA County Releases After-Action Review of Alert Notification Systems and Evacuation Policies for the Eaton and Palisades Fires. COUNTY OF LOS ANGELES. https://lacounty.gov/2025/09/25/la-county-releases-after-action-review-of-alert-notification-systems-and-evacuation-policies-for-the-eaton-and-palisades-fires/</p>
-<p>Sentinel-Hub by Sinergise. (n.d.). Simple RGB composites (sentinel-2). Sentinel Hub custom scripts. https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/composites/</p>
+<p>Sentinel-Hub by Sinergise. Simple RGB composites (sentinel-2). Sentinel Hub custom scripts. https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/composites/</p>
 <p>Wong, M. S., Steers, W. N., &amp; Washington, D. L. (2025, July 23). Inequities in weathering California wildfires. Health affairs scholar. https://pmc.ncbi.nlm.nih.gov/articles/PMC12397747/</p>
 <p>Xarray.plot.imshow. xarray. (2025, November 28). https://docs.xarray.dev/en/stable/generated/xarray.plot.imshow.html</p>
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{bonnet2025,
-  author = {Bonnet, Nathalie},
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{bonnet2025,
+  author = {Nathalie Bonnet},
   title = {Visualizing the 2025 {Southern} {California} {Wildfires}},
-  date = {2025-12-03},
-  url = {https://github.com/NatBonnet/NatBonnet.github.io/tree/main/posts/la_fires},
+  date = {2025-12-12},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-bonnet2025" class="csl-entry quarto-appendix-citeas" role="listitem">
-Bonnet, Nathalie. 2025. <span>“Visualizing the 2025 Southern California
-Wildfires.”</span> December 3, 2025. <a href="https://github.com/NatBonnet/NatBonnet.github.io/tree/main/posts/la_fires">https://github.com/NatBonnet/NatBonnet.github.io/tree/main/posts/la_fires</a>.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-bonnet2025" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Nathalie Bonnet. 2025. <span>“Visualizing the 2025 Southern California
+Wildfires.”</span> December 12, 2025.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
     }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
-          }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
-  </script>
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>Copyright 2025, Nathalie Bonnet</p>
-</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
-    <div class="nav-footer-right">
-      &nbsp;
-    </div>
+    <div class="nav-footer-left">Copyright 2025, Nathalie Bonnet</div>   
   </div>
 </footer>
-
 
 
 
