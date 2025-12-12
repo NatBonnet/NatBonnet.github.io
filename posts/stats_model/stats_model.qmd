@@ -503,6 +503,7 @@ geom_line(size = 0.5) +
   theme_minimal() +
 scale_fill_paletteer_d("MetBrewer::Gauguin")
 ```
+
 Comparing the change between how predicted TBS is modeled by the Gamma GLM with and without ambient air temperature as an additive effect, we see that the slope of response values slightly flips for some genera, or even more dramatically in the case of Halictus bees. This could possibly be occurring for many reasons from an ecological standpoint, but statistically it is likely that the simpler model here was absorbing some effects that are explained by temperature, so adding temperature causes the overall predicted response to change.
 
 

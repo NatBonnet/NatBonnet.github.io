@@ -12,13 +12,17 @@ citation: True
 ![Image retrieved from GettyImages](fish.png) 
 
 ## Introduction
-Aquaculture as a means of protein food production is increasingly necessary to support global nutritional demand. Done right, growing seafood above other animal proteins has the potential to reduce carbon emissions from other sources such as cattle. Therefore, it is critical to study the complex dynamics that contribute to sustainable aquaculture practices. This demands an understanding of the factors that will influence aquaculture site suitability to maximize sustainable output and reduce environmental impact. 
-
 The following analysis was completed as a homework task for EDS223 in the Bren MEDS program [github link](https://github.com/NatBonnet/eds-223-aquaculture).
 
-The goal of the analysis was to use data about ocean conditions to predict the amount of suitable area for a given species within each of five Pacific West coast exclusive economic zones (EEZs). 
+Aquaculture as a means of protein food production is increasingly necessary to support global nutritional demand. Done right, growing seafood above other animal proteins has the potential to reduce carbon emissions from other sources such as cattle (Zhang et al. 2024). Thus, it is critical to understand the complex dynamics that contribute to sustainable aquaculture practices and that might influence site suitability.
 
-The initial data processing and analyses were conducted based on a given range of suitable temperature and maximum depth conditions for oyster aquaculture. The final workflow included a function that transforms inputs of maximum and minimum temperature and depth conditions for any given species into a map of total suitable area in each WC EEZ, and the name of the most suitable region. 
+## Addressing geospatial complexity in determining suitable areas for aquaculture
+Siting aquaculture operations requires identifying marine areas where environmental conditions align with the physiological tolerance of grown species. Conditions are highly variable over space and time, so determining site suitability is a critical geospatial problem. 
+
+This analysis used available oceanographic data to stack multiple environmental variables and identify where their suitable ranges overlap, allowing us to quantify and map overall aquaculture suitability within the U.S. West Coast Exclusive Economic Zone (EEZ) for a given species. The ultimate goal was to develop a reproducible method for assessing the aquaculture potential of different species across EEZ areas.
+
+
+The initial data processing and analyses were conducted based on a given range of suitable temperature and maximum depth conditions for oyster aquaculture. The final workflow includes a function that transforms inputs of maximum and minimum temperature and depth conditions for any given species into a map of total suitable area in each WC EEZ, and the name of the most suitable region. 
 
 ## Data access and information
 For the analyses, we utilized publicly available sea surface temperature (SST) and bathymetry data from the Pacific, and West coast EEZ region data.
@@ -99,7 +103,7 @@ sst <- rast(c((
 ## Data processing
 The ultimate goal of this workflow was to produce a spatial object to find areas that are suitable for a given species based on surface temperature and total depth. 
 
-The first step a workflow with multiple spatial objects should be to check if coordinate reference systems (CRS) match between datasets.
+The first step in a workflow with multiple spatial objects should be to check if coordinate reference systems (CRS) match between datasets.
 In order to eventually stack rasters, the CRS, spatial extent, and resolution of cells must match. 
 
 In this stage of analysis I used a warning and if-else statement to ensure that the depth and SST data matched the same CRS as that of EEZ zones. 
@@ -149,8 +153,13 @@ You can easily check if all three necessary elements match by seeing if raster l
 #| output: false
 
 # Check that bathymetry layer can stack with mean_sst
-c(depth_crop_res, mean_sst)
-# Works
+if (crs(depth_crop_res) == crs(mean_sst) &
+all(res(depth_crop_res)) == all(res(mean_sst)) &
+ext(depth_crop_res) == ext(mean_sst)){
+  print("Rasters can stack")
+} else{
+  warning("Rasters do not share all necessary attributes")
+}
 ```
 
 
@@ -198,12 +207,23 @@ suitable_eez <- mask(suitable, eez)
 zonal <- extract(suitable_eez, eez)
 
 # Return the count of raster cells that are suitable in each eez
-zonal_count <- zonal %>% 
-  group_by(ID) %>% 
-  summarise(count = sum(mean, na.rm = TRUE)) 
-
+zonal_count <- zonal %>%
+  group_by(ID) %>%
+  summarise(count = sum(mean, na.rm = TRUE)) %>%
+  mutate(
+    ID = recode(
+      ID,
+      "1" = "Washington",
+      "2" = "Oregon",
+      "3" = "Northern California",
+      "4" = "Central California",
+      "5" = "Southern California"
+    )) %>%
+      rename("Region" = ID)
+    
 # Summary table
-kableExtra::kable(zonal_count, caption = "Total count of raster cells classified as suitable for oyster by West Coast EEZ area", align = "c")
+kableExtra::kable(zonal_count, caption = "Total count of raster cells classified as suitable for oyster by West Coast EEZ area", align = "c"
+    )
 ```
 
 The dimensions of cells containing suitability data were multiplied by the number of suitable cells to quantify the actual area (km²) contained within suitable areas. Similarly to how the total number of suitable cells was found, the sum of suitable area by EEZ area was calculated. This information was joined onto the original EEZ data in order to be able to map EEZ zones by suitable area.
@@ -243,9 +263,9 @@ tm_shape(eez_zone_areas) +
 # Create subset of data frame to pull out most suitable EEZ
 eez_table <- eez_zone_areas %>% 
   select(rgn, area) %>% 
-  st_drop_geometry() %>% 
-  #rename("Region" = rgn, "Area (km²)" = area) %>% 
-  slice_max(area, n=1)
+  st_drop_geometry() %>% slice_max(order_by = area, n = 1) %>% 
+  rename("Region" = rgn, "Area (km²)" = area)
+  
 
 # Print in kable formatting
 kableExtra::kable(eez_table, caption = "Most Suitable West Coast EEZ for Oysters", align = "c")
@@ -326,8 +346,7 @@ crs(depth_data) != crs(sst_data)){
 eez_zone_areas <- left_join(eez_data, zonal_area, by = 'rgn_id')
 
 # Plot the species 
-print(
-  tm_shape(eez_zone_areas) +
+print(tm_shape(eez_zone_areas) +
   tm_polygons(fill = 'area',
               fill.scale = tm_scale_continuous(values = "brewer.blues"), 
               fill.legend = tm_legend(title = "suitable area (km²)")) +
@@ -342,8 +361,8 @@ print(
 eez_table <- eez_zone_areas %>% 
   select(rgn, area) %>% 
   st_drop_geometry() %>% 
-  slice_max(area, n=1)
-
+  slice_max(order_by = area, n = 1) %>% 
+  rename("Region" = rgn, "Area (km²)" = area)
 
 # Print in kable formatting
 kableExtra::kable(eez_table, caption = paste0("Most Suitable West Coast EEZ for ", species_name), align = "c")
@@ -381,10 +400,11 @@ eez_area_zone(eez_data = eez,
 ```
 The results of the map and total suitable area within the most optimal EEZ compared to our oyster example show a large decrease in suitable area across all zones, and that only Southern California was suitable at all. 
 
+## Conclusions
+
 Thinking about our two input data sources that determine suitability, we were only able to look at annually averaged sea surface temperature over 4 years. As Yellowtail are a pelagic fish, that likely do not spend a majority of their time at the surface, our temperature data is extremely limited in its ability to predict suitability beyond the surface. Further, as these data are an annual average, seasonal temperature fluctuations and mixing are not represented within the data. Yellowtail are highly mobile fish, with a range between British Columbia and Mazatlán, Mexico (California Department of Fish and Wildlife). Age is a significant factor in thermal tolerance, as older fish are better able to tolerate cold conditions. Thus, the temporal resolution of the data and the lack of a temperature depth profile are a large constraint on the predictive value of this simplified analysis, which is more relevant to surface dwelling species such as sedentary rocky intertidal organisms like oysters. 
 
 ## References
-
 ### Literature
 
 California yellowtail Amberjack seafood recommendation. Seafoodwatch.org. https://www.seafoodwatch.org/recommendation/amberjack/california-yellowtail-57716 
