@@ -1,11 +1,10 @@
 ---
-title: "Nathalie Bonnet"
 image: images/Nathalie Bonnet_MEDS Headshots 2026_0025.jpg
 toc: false
 about:
-  template: solana
+  template: jolla
   image-shape: round
-  image-width: 10cm
+  image-width: 8cm
   links: 
     - icon: linkedin
       href: https://www.linkedin.com/in/nathalie-bonnet-78a5a02b5/
@@ -21,4 +20,4 @@ about:
 
 ---
 
-Nathalie is an environmental data scientist-in-training at UCSB who feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, she’s usually chasing sunshine on a trail, bike, or surfboard.
+Hi there! I'm Nathalie Bonnet (silent h, pronounced like Bo-nay. C'est français!). I am an environmental data scientist-in-training at UCSB's Bren School of Environmental Science and Management. I feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, you can usually find me chasing sunshine on a trail, bike, or surfboard!

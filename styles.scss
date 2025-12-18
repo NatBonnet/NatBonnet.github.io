@@ -9,9 +9,7 @@
 
 //colors
 $saltblue: #d3dad7ff;
-$eggplant: #413d49c5;
 $terracota: #945140ff;
-$marine: #005477ff;
 $olive: #7E8D85;
 $carbon: #1C221D;
 
@@ -23,3 +21,8 @@ $navbar-fg: $carbon;
 $link-color: $terracota;
 
 
+//favicon
+.navbar-brand img {
+  max-height: 60px;  // try 40–60px
+  width: auto;
+}

@@ -4,7 +4,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "Predicting Suitable Aquaculture Zones with EEZ data and Water Conditions\n\n\n\nMEDS\n\nGeospatial\n\nR\n\ndata-viz\n\n\n\n\n\n\n\nNathalie Bonnet\n\n\nDec 12, 2025\n\n\n\n\n\n\n\n\n\n\n\nPredicting Thermal Tolerance in California Bees using a Gamma Distribution Linear Model\n\n\n\nMEDS\n\nStatistics\n\nR\n\ndata-viz\n\n\n\n\n\n\n\nNathalie Bonnet\n\n\nDec 11, 2025\n\n\n\n\n\n\n\n\n\n\n\nNeonicitinoid Toxicity: 30 Years of Sample Bias\n\n\n\nMEDS\n\n\n\n\n\n\n\nNathalie Bonnet\n\n\nDec 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nVisualizing the 2025 Southern California Wildfires\n\n\n\nMEDS\n\nGeospatial\n\nPython\n\n\n\nUsing Landsat data to visualize the extent of wildfires through true and false color images, and investigating socioeconomics in impacted areas.\n\n\n\nNathalie Bonnet\n\n\nDec 3, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nFirst blog post\n\n\n\nMEDS\n\nResearch\n\nR\n\ndata-viz\n\n\n\na short description of the blog post\n\n\n\nNathalie Bonnet\n\n\nNov 12, 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Predicting Suitable Aquaculture Zones with EEZ data and Water Conditions\n\n\n\nMEDS\n\nGeospatial\n\nR\n\ndata-viz\n\n\n\n\n\n\n\nNathalie Bonnet\n\n\nDec 12, 2025\n\n\n\n\n\n\n\n\n\n\n\nPredicting Thermal Tolerance in California Bees using a Gamma Distribution Linear Model\n\n\n\nMEDS\n\nStatistics\n\nR\n\ndata-viz\n\n\n\n\n\n\n\nNathalie Bonnet\n\n\nDec 11, 2025\n\n\n\n\n\n\n\n\n\n\n\nNeonicitinoid Toxicity: 30 Years of Sample Bias\n\n\n\nMEDS\n\n\n\n\n\n\n\nNathalie Bonnet\n\n\nDec 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nVisualizing the 2025 Southern California Wildfires\n\n\n\nMEDS\n\nGeospatial\n\nPython\n\n\n\nUsing Landsat data to visualize the extent of wildfires through true and false color images, and investigating socioeconomics in impacted areas.\n\n\n\nNathalie Bonnet\n\n\nDec 3, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/la_fires/la_fires.html",
@@ -144,28 +144,42 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Here’s where I describe what I do professionally"
+    "text": "Salut! Here’s where you learn a little bit more about me"
   },
   {
-    "objectID": "about.html#what-i-do-for-work",
-    "href": "about.html#what-i-do-for-work",
+    "objectID": "about.html#my-background-ma-origine",
+    "href": "about.html#my-background-ma-origine",
     "title": "About",
-    "section": "",
-    "text": "Here’s where I describe what I do professionally"
+    "section": "My background / Ma origine",
+    "text": "My background / Ma origine\nI was born and raised in Denver, Colorado, where I learned there’s nothing better than the relationship you form to your natural environment. I attended an imersion school where I learned French, which comes surprisingly in handy as a second language. My many sports, cooking experiments, and creative hobbies I have collected over the years have led me to consider myself somewhat of a jack of all trades, and I wouldn’t have it any other way."
   },
   {
-    "objectID": "about.html#what-i-do-for-fun",
-    "href": "about.html#what-i-do-for-fun",
+    "objectID": "about.html#my-studies-mes-études",
+    "href": "about.html#my-studies-mes-études",
     "title": "About",
-    "section": "What I do for fun",
-    "text": "What I do for fun\nNothing! When I am not working my creator overlord must power me off and plug me in in the closet!"
+    "section": "My studies / Mes études",
+    "text": "My studies / Mes études\nI recieved my Bachelor’s in Aquatic Biology from the University of California, Santa Barbara. During my undergraduate studies, I was lucky enough to work as a research assistant at the Cheadle Center for Biodiversity & Ecological Restoration.\nI participated in several projects that developed my interest in ecological research and data analysis. I got some early insight into machine learning leading a group of photoshop interns in creating training data to model bee hairness as an indicator of thermal tolerance.\nFrom here, I wanted some field experience, and was able to get up close and personal with female Carpenter bees (Xylocopa tabaniformis) to study their exocrine signaling and sociality.\nWith the support of my advisors, I completed two seasons of field collections for an independent research project investigating thermal tolerance across an array of Santa Barbara bee genera. I explored the preliminary outcomes of these data using a gamma generalized linear model and wrote a little blog post about it. My experience in the field and lab taught me that to be an ecologist, you must first be a data scientist! This led to to where I currently am, in my third quarter of UCSB’s Bren School Master of Environmental Data Science program.\nMy coursework from Fall is highlighted in my blog! Thus far, my favorite topic we have touched on is geospatial analysis. I am interested in visualizing large scale processes, particularly over time."
+  },
+  {
+    "objectID": "about.html#my-work-mon-métier",
+    "href": "about.html#my-work-mon-métier",
+    "title": "About",
+    "section": "My work / Mon métier",
+    "text": "My work / Mon métier\nMy studies, research, and life experience have taught me thus far that everything goes a lot smoother when you have good information about your information. I started my dream internship with the National Center for Ecological Analysis and Synthesis in June, 2025. In my role as a data intern with the Arctic Data Center team, I help process incoming datasets from all areas of research pertaining to the Arctic to make metadata open, accessible, and reproducible. This is of great significance to me as someone who is interested in working on climate change as the Arctic is warming more rapidly than anywhere else on Earth. I have learned a lot in this role about all things data science, and am grateful for the continued opportunity to grow."
+  },
+  {
+    "objectID": "about.html#outside-pour-samuser",
+    "href": "about.html#outside-pour-samuser",
+    "title": "About",
+    "section": "Outside / Pour s’amuser",
+    "text": "Outside / Pour s’amuser\nBeing a Masters student and intern keeps me quite busy, but I somehow find time to get outside and pursue my hobbies off the computer. Going to UCSB afforded me the greatest blessing of all time: living between the mountains and the ocean. I’ve gotten comfortable riding my 8’0 funboard, and go skiing at Mammoth Mountain or Tahoe whenever I get the chance. I have discovered that grad school is a wonderful time to get into knitting, and have started my first big project! Find me on Ravelry."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Nathalie Bonnet",
     "section": "",
-    "text": "Nathalie is an environmental data scientist-in-training at UCSB who feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, she’s usually chasing sunshine on a trail, bike, or surfboard."
+    "text": "Hi there! I’m Nathalie Bonnet (silent h, pronounced like Bo-nay. C’est français!). I am an environmental data scientist-in-training at UCSB’s Bren School of Environmental Science and Management. I feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, you can usually find me chasing sunshine on a trail, bike, or surfboard!"
   },
   {
     "objectID": "posts/eez_aquaculture/eez_aquaculture.html",

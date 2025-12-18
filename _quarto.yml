@@ -4,10 +4,10 @@ project:
 
 website:
   title: "Nathalie Bonnet"
-  favicon: images/favicon_mask.png
+  favicon: images/Bonnet-favicon.png
   navbar:
     title: false
-    logo: images/favicon_mask.png
+    logo: images/Bonnet-favicon.png
     right:
       - href: index.qmd
         text: Home
