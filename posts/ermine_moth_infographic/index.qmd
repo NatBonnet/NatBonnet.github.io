@@ -2,7 +2,7 @@
 title: "Flight-to-Light"
 subtitle: "Moths in historically light-polluted areas are desensitized to light"
 format: html
-date: 2026-3-8
+date: 2026-3-17
 categories: [MEDS, R, data-viz]
 warning: False
 error: False
@@ -16,53 +16,132 @@ citation: True
 — William Shakespeare
 :::
 
-The importance of pollination as an ecosystem service is well known in the light of popular insects like honey bees and bumblebees. But what about what happens in the dark? Though diurnal pollinators cannot be discounted, 1/3 of angiosperm (flowering) plants are known to be pollinated by nocturnal animals [@borges2016]. This integral role supports species interaction networks that promote biodiversity, and contribute to human food security. Of these important pollinator groups, lepidoptera (moths and butterflies) play a big part. Nocturnally active pollinators are largely overlooked in research due to many practical obstacles. Due to their important roles and known global species declines, it is important to understand anthropogenic drivers of nocturnal pollination decline such as light pollution [@macgregor2020].
+# Background Motivation
+
+Pollination is widely recognized as an important ecosystem service, particularly through well-known insects like honey bees and bumblebees. However, much less attention is given to pollination that occurs at night. While daytime pollinators are incredibly important, approximately ⅓ of angiosperms (flowering plants) are pollinated by nocturnal animals [@borges2016]. 
+
+This integral role supports species interaction networks that promote biodiversity, and contribute to human food security. Of these important pollinator groups, Lepidoptera (moths and butterflies) play a big part. Nocturnally active pollinators are largely overlooked in research due to many practical obstacles. Due to their important roles and known global species declines, it is important to understand anthropogenic drivers of nocturnal pollination decline such as light pollution [@macgregor2020].
 
 Though limited, the existing body of knowledge suggest that light pollution has a significant negative effect on normal moth light attraction behavior.
 
+# Case Study and Data
 Using a study from the border of France and Switzerland [@altermatt2016] on the delightfully fairy-like spindle ermine moth (*Yponomeuta cagnagella*), I wanted to visualize how moths are impacted by urban light pollution, and showcase how this might influence vital ecosystems and services.
 
 ![Adult ermine moth. Source: https://bit.ly/3ikULKH Photo: Dan Dzurisin CCL: https://bit.ly/3A4XrlF Read more at Our Breathing Planet: White Ermine https://www.ourbreathingplanet.com/?p=10471](ermine_moth.jpg){fig-alt="Image of a ermine moth, a fuzzy white and black spotted moth with a bright orange underbelly."}
 
-The elements of my final infographic aim to highlight the main findings of the study:
-
--   A significant decrease in light attraction in moth populations from historically light polluted areas.
-
--   Male moths show greater attraction to light overall than females. They were more likely to fly towards light in an experimental setting. The authors point to decreased mobility being due to altered visual processing or potentially decreased mobility in general.
-
--   Overall, long term light pollution seems to be causing moths to evolutionarily shrink away from light, disrupting normal navigation and pollination.
-
 The data from the study can be found here: [Dryad](https://datadryad.org/dataset/doi:10.5061/dryad.v1885#citations)
 
-*note*: One pre-visualization step I had to take to include all the information in the article was adding in coordinate information and light pollution bins/ their associated statuses (polluted or not polluted), as these were not directly provided in the data.
+# Goals
 
-![Infographic: Ermine moth populations that have evolved in light polluted areas show less attraction to light than in dark-sky areas.](bonnet-draft-infographic.png){fig-alt="Infographic describing a study on ermine moth populations. A map of study sites categorizes light pollution bins and study site locations. A bar chart shows that moths are less attracted to light when historically exposed to light pollution, and that male moths are more mobile (show more attraction) than female moths. A donut plot shows that overall, a 12% decrease in light attraction was shown in polluted areas." fig-align="center"}
+The elements of my final infographic aim to highlight the main findings of the study:
 
-My final infographic ended up using a bar chart that was very similar to the original one included in publication (but more thematic), a sneaky little donut plot (look for the moth's proboscis), and a map showing the study site coordinates associated with the recorded radiance from the study against NASA's Worldview night light imagery. I initially built the plots in R, then got crafty in Affinity Designer by Canva.
+- Visualize how light-polluted vs. dark-sky moth populations differ in light attraction behavior
+- Highlight the sex-based differences in this response
+- Situate these findings in their broader ecological context — what this means for pollination, predation, and habitat connectivity
 
-## Designing the Infographic
+# Data Processing
 
-As someone with an artistic background, I wanted to use fairly simple data visualization techniques so I could add more illustrative elements without overcrowding the visuals. Although there are so many cool chart types, sometimes the most accessible are bar charts and maps. In reading the study, I was automatically interested in the bar chart showing a clear proportional difference between populations. This agrees with Warren's hierarchy of visual processing, which asserts that human brains are better at processing height than other ways of representing data such as shade or area.
+One pre-visualization step I had to take to include all the information in the article was adding in coordinate information and light pollution bins/ their associated statuses (polluted or not polluted), as these were not directly provided in the data.
 
-Speaking of visual hierarchy, I wanted to integrate a night sky element into the visual without violating every possible rule of contrast, ink to data ratio, and whitespace (or darkspace in this case).
+# Takeaways
 
-One element that was tricky to integrate was simply background color. I wanted to make sure that plots had enough contrast to stand out, but not so much that you could barely see anything on a normal laptop screen. Thus, I played around with colors. A lot.
+I recreated the study results using the author's data by summarizing the overall attraction behavior of all moth populations, then separating flight counts by sex. 
 
-### a very dark map
+The results showed that moth populations exposed to light pollution across decades are less attracted to light than those living in dark-sky regions. 
 
-This came into play in particular with my map, as my first attempt mapped plot study sites by their associated radiance measurement bin. I could not find a basemap that was on-theme and didn't drown out the colors of the study site points. This is where I chose to map the exact coordinates of each study site to NASA's Black Marble night light interactive map [@nasa_worldview]. This allowed me to go back in and place my radiance bins on the precise positions they were collected from while showing overall light pollution.
+Male moths are more attracted to light than female moths. This means that they’re more likely to fly towards light in an experimental environment. This is likely because male moths must actively locate female mates. This could potentially be also impacting reproduction rates, contributing to a broader pattern of pollination decline. 
 
-![Map of study sites between the border of France and Switzerland with their associated radiance binning measured in the study.](draft_map.png){fig-alt="A dark colored map with colored points representing study site coordinates. The points are colored dark orange to light yellow to signify radiance. The study sites on the Swiss side of the map show greater light pollution (20 or more nanowatts per square centimeter per steradian)."}
+Disruption of natural moth navigation can have impacts on pollination rates, decrease food availability for nocturnal predators, and worsen habitat fragmentation effects.
 
-I also wanted to add in the visual element of streetlights themselves to get the theme of the study across of the bat. I tried to use these to literally highlight the decreased light attraction of moths overall, as well as by sex by orienting these data representations under streetlight icons.
+To summarize these findings from my data exploration, I considered the following design elements:
 
-As a scientific study, I also needed to contextualize the study and summarize results without crowding the infographic too much. I tried to use natural lines between visual elements to break up text, and used size + bolding to guide readers' eyes to elements in a particular order.
+# Design Elements
 
-Due to this consideration, I experimented with fonts to achieve a clean readable appearance. I settled on *Lucida fax*, and used it across the entire info graphic apart from the monospaced noto sans text I kept for the number of the bar plot.
+::: panel-tabset
+## Graphic Form
+
+In creating the final visual product, I considered [@cleveland1984graphical] hierarchy of elementary perceptual tasks, which describes how people most accurately estimate values when looking at the position of data across a common scale. I chose a bar plot for this reason to summarize the main finding of the study. I also wanted to use a map to spatially contextualize the distances between study cities. These fairly basic plots allowed me to add more illustrative elements without overwhelming readers. My goal was to highlight the negative effects of light pollution on a subset of pollinators for readers who may not have an entemology background. 
+
+## Text
+
+Although I initially made text adjustments in R, I replaced all final text elements in Affinity at the end. Using Affinity allowed me to more quickly experiment with placements and typefaces.
+
+## Icons
+
+All icons used for visual interest were downloaded from the Noun Project. These vector icons I used are publicly accessible and made by the following artists.
+
+![](noun-city-8301608.svg){width=160px} 
+![](noun-city-skyline-6382565.svg){width=160px}
+![](noun-house-7520863.svg){width=160px} 
+![](noun-house-8317270.svg){width=160px} 
+![](noun-lantern-8314132.svg){width=160px} 
+![](noun-street-light-120603.svg){width=160px}
+![](noun-street-light-120604.svg){width=160px}
+
+## Themes
+
+I was going for an overall dark and modern theme. To do this I made certain color choices for contrast, and also removed or decreased the visual intensity of gridlines and labels to reduce noise in the final figure.
+
+## Colors
+
+When thinking about this infographic, I was motivated to use the natural colors from the spindle ermine moth and their associated plant: the European Spindle. I also wanted to use a night-sky color scheme for my background and lighting elements. My color palette ended up using a semi-illuminated grey blue to anchor all dark points to- as if you were looking at the night sky near a city. I also picked colors directly from these images of the ermine moth and plant. Using these colors, I also created my map radiance palette to fit the warm toned colors.
+
+![Ermine Moth with wings spread. Image from Earth.com. https://www.earth.com/news/how-ermine-moths-effortlessly-produce-ultrasonic-warning-sounds/](ermine-moth-image.jpg){width=300px}
+![European Spindle Tree. Image from Woodland Trust. https://www.woodlandtrust.org.uk/trees-woods-and-wildlife/british-trees/a-z-of-british-trees/spindle/](european-spindle.jpg){width=300px}
+
+## Typography
+
+With the dark color palette of my infographic, I wanted to minimize too much visual strain. I ended up using a sans-serif font called **Manrope** to get the job done, only changing the title text to distinguish it from the other text blocks.
+
+
+## Layout
+
+I used streetlight and lantern icons as both a thematic anchor and a structural device. This aimed to group the population-level and sex-disaggregated data visualizations beneath them to reinforce the study's core findings. Natural dividing lines between visual sections helped manage text without requiring heavy borders or boxes.
+
+Size and weight (bold text, larger headers) guide the reader's eye through the infographic in a deliberate order: context → key finding → supporting detail.
+
+## Contextualizing Data
+
+Adding enough context for general audience to access the results of a dense scientific study was difficult. I played around with technical wording, and ultimately cut some detail from the final infographic text that clouded the main takeaways.
+
+## Centering the Main Message
+
+There were several things I did not understand from the study alone, so centering the primary takeaways around implications was more important than just interpreting the study results. I did this by trying to weave in connected topics such as plant pollination and other species interactions. 
+
+## Accessibility
+
+Especially due to the dark nature of the infographic, I chose other colors to emphasize contrast, and also picked my color palette with the use of **Coolors.com*, where you can export a color palette and apply colorblind filters to it to test for shade difference. 
+
+:::
+
+# Foundational Data Visualizations
+
+Considering the visual elements detailed above, I chose to build my infographic on these plots:
+
+### A Very Dark Map
+
+![Map of study sites between the border of France and Switzerland with their associated radiance binning measured in the study.](formatted-map.png){fig-alt="A dark colored map with colored points representing study site coordinates. The points are colored dark orange to light yellow to signify radiance. The study sites on the Swiss side of the map show greater light pollution (20 or more nanowatts per square centimeter per steradian)."}
+
+My first map attempt plotted study sites colored by radiance bin — but no standard basemap felt thematically coherent without drowning out the point colors. The solution: I overlaid study site coordinates directly onto **NASA's Black Marble night light imagery** [@nasa_worldview], which provided a real-data dark basemap. This let me show actual light pollution context while placing the radiance bins precisely where they were measured.
+
+### Alluvial Flow Diagram
+
+I wanted to visualize overall reduced flight to a light source in a flow diagram to visually mimic a moth's potential flight paths. I created a very simple alluvial diagram to do this. I changed design elements in Affinity to describe the moth population sources more intuitively, and included the lantern icon to emphasize the flight-to-light path.
+
+### Bar Chart
+
+This bar chart is essentially a recreation of the study's main figure with tweaks for interpretability. 
+
+---
+
+# Final Product
+
+All component plots were built in R, then assembled and refined in **Affinity Designer by Canva**.
+
+![Infographic: Ermine moth populations that have evolved in light polluted areas show less attraction to light than in dark-sky areas.](final_infographic.png){fig-alt="Infographic describing a study on ermine moth populations. A map of study sites categorizes light pollution bins and study site locations. An alluvial flow diagram shows that a smaller proportion of moths from historically light-polluted areas fly towards a light source. A bar chart shows that male moths are more mobile (show more attraction) than female moths."}
 
 ## Initial Plot Code
 
-All of these decisions culminated in the below is all the code that builds all the initial plots I used in R!
 
 ```{r}
 #| out-width: "100%"
@@ -382,5 +461,29 @@ ggplot(pol_tot_sum, aes(x = 2, y = prop_attracted, fill = pollution_status)) +
       
       legend.title = element_blank()
       )
+
+df <- pol_tot_sum %>%
+  select(-prop_attracted) %>% 
+  pivot_longer(
+    cols = c(total_attracted, total_not_attracted),
+    names_to = 'attraction' ,
+    values_to = 'count'
+  ) %>% 
+  mutate(attraction = recode_factor(attraction, 
+                                    total_attracted = "attracted", 
+                                    total_not_attracted = "not attracted"))
+
+alluvial_plot <- ggplot(df,
+  aes(axis1 = pollution_status, axis2 = attraction, y = count)) +
+  geom_alluvium(aes(fill = pollution_status), width = 0.3, alpha = 0.7) +
+  geom_stratum(width = 0.2, fill = "white", color = "grey60") +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum)),
+            size = 3.5) +
+  scale_fill_manual(values = c("#868677", "#535459")) +
+  scale_x_discrete(limits = c("Pollution Status", "Attraction"),
+                   expand = c(0.1, 0.1)) +
+  labs(y = "Number of moths") +
+  theme_minimal() +
+  theme(legend.position = "none")
 
 ```

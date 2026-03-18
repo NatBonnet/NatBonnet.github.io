@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nathalie Bonnet">
-<meta name="dcterms.date" content="2026-03-08">
+<meta name="dcterms.date" content="2026-03-17">
 
 <title>Flight-to-Light – Nathalie Bonnet</title>
 <style>
@@ -210,7 +210,7 @@ div.csl-indent {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 8, 2026</p>
+        <p class="date">March 17, 2026</p>
       </div>
     </div>
     
@@ -226,11 +226,22 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#designing-the-infographic" id="toc-designing-the-infographic" class="nav-link active" data-scroll-target="#designing-the-infographic">Designing the Infographic</a>
+  <li><a href="#background-motivation" id="toc-background-motivation" class="nav-link active" data-scroll-target="#background-motivation">Background Motivation</a></li>
+  <li><a href="#case-study-and-data" id="toc-case-study-and-data" class="nav-link" data-scroll-target="#case-study-and-data">Case Study and Data</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing">Data Processing</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  <li><a href="#design-elements" id="toc-design-elements" class="nav-link" data-scroll-target="#design-elements">Design Elements</a></li>
+  <li><a href="#foundational-data-visualizations" id="toc-foundational-data-visualizations" class="nav-link" data-scroll-target="#foundational-data-visualizations">Foundational Data Visualizations</a>
   <ul class="collapse">
-  <li><a href="#a-very-dark-map" id="toc-a-very-dark-map" class="nav-link" data-scroll-target="#a-very-dark-map">a very dark map</a></li>
+  <li><a href="#a-very-dark-map" id="toc-a-very-dark-map" class="nav-link" data-scroll-target="#a-very-dark-map">A Very Dark Map</a></li>
+  <li><a href="#alluvial-flow-diagram" id="toc-alluvial-flow-diagram" class="nav-link" data-scroll-target="#alluvial-flow-diagram">Alluvial Flow Diagram</a></li>
+  <li><a href="#bar-chart" id="toc-bar-chart" class="nav-link" data-scroll-target="#bar-chart">Bar Chart</a></li>
   </ul></li>
+  <li><a href="#final-product" id="toc-final-product" class="nav-link" data-scroll-target="#final-product">Final Product</a>
+  <ul class="collapse">
   <li><a href="#initial-plot-code" id="toc-initial-plot-code" class="nav-link" data-scroll-target="#initial-plot-code">Initial Plot Code</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -245,8 +256,14 @@ div.csl-indent {
 <p><strong><em>“Thus hath the candle singed the moth.”</em></strong></p>
 <p>— William Shakespeare</p>
 </div>
-<p>The importance of pollination as an ecosystem service is well known in the light of popular insects like honey bees and bumblebees. But what about what happens in the dark? Though diurnal pollinators cannot be discounted, 1/3 of angiosperm (flowering) plants are known to be pollinated by nocturnal animals <span class="citation" data-cites="borges2016">(<a href="#ref-borges2016" role="doc-biblioref">Borges, Somanathan, and Kelber 2016</a>)</span>. This integral role supports species interaction networks that promote biodiversity, and contribute to human food security. Of these important pollinator groups, lepidoptera (moths and butterflies) play a big part. Nocturnally active pollinators are largely overlooked in research due to many practical obstacles. Due to their important roles and known global species declines, it is important to understand anthropogenic drivers of nocturnal pollination decline such as light pollution <span class="citation" data-cites="macgregor2020">(<a href="#ref-macgregor2020" role="doc-biblioref">Macgregor and Scott-Brown 2020</a>)</span>.</p>
+<section id="background-motivation" class="level1">
+<h1>Background Motivation</h1>
+<p>Pollination is widely recognized as an important ecosystem service, particularly through well-known insects like honey bees and bumblebees. However, much less attention is given to pollination that occurs at night. While daytime pollinators are incredibly important, approximately ⅓ of angiosperms (flowering plants) are pollinated by nocturnal animals <span class="citation" data-cites="borges2016">(<a href="#ref-borges2016" role="doc-biblioref">Borges, Somanathan, and Kelber 2016</a>)</span>.</p>
+<p>This integral role supports species interaction networks that promote biodiversity, and contribute to human food security. Of these important pollinator groups, Lepidoptera (moths and butterflies) play a big part. Nocturnally active pollinators are largely overlooked in research due to many practical obstacles. Due to their important roles and known global species declines, it is important to understand anthropogenic drivers of nocturnal pollination decline such as light pollution <span class="citation" data-cites="macgregor2020">(<a href="#ref-macgregor2020" role="doc-biblioref">Macgregor and Scott-Brown 2020</a>)</span>.</p>
 <p>Though limited, the existing body of knowledge suggest that light pollution has a significant negative effect on normal moth light attraction behavior.</p>
+</section>
+<section id="case-study-and-data" class="level1">
+<h1>Case Study and Data</h1>
 <p>Using a study from the border of France and Switzerland <span class="citation" data-cites="altermatt2016">(<a href="#ref-altermatt2016" role="doc-biblioref">Altermatt and Ebert 2016</a>)</span> on the delightfully fairy-like spindle ermine moth (<em>Yponomeuta cagnagella</em>), I wanted to visualize how moths are impacted by urban light pollution, and showcase how this might influence vital ecosystems and services.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -254,43 +271,104 @@ div.csl-indent {
 <figcaption>Adult ermine moth. Source: https://bit.ly/3ikULKH Photo: Dan Dzurisin CCL: https://bit.ly/3A4XrlF Read more at Our Breathing Planet: White Ermine https://www.ourbreathingplanet.com/?p=10471</figcaption>
 </figure>
 </div>
+<p>The data from the study can be found here: <a href="https://datadryad.org/dataset/doi:10.5061/dryad.v1885#citations">Dryad</a></p>
+</section>
+<section id="goals" class="level1">
+<h1>Goals</h1>
 <p>The elements of my final infographic aim to highlight the main findings of the study:</p>
 <ul>
-<li><p>A significant decrease in light attraction in moth populations from historically light polluted areas.</p></li>
-<li><p>Male moths show greater attraction to light overall than females. They were more likely to fly towards light in an experimental setting. The authors point to decreased mobility being due to altered visual processing or potentially decreased mobility in general.</p></li>
-<li><p>Overall, long term light pollution seems to be causing moths to evolutionarily shrink away from light, disrupting normal navigation and pollination.</p></li>
+<li>Visualize how light-polluted vs.&nbsp;dark-sky moth populations differ in light attraction behavior</li>
+<li>Highlight the sex-based differences in this response</li>
+<li>Situate these findings in their broader ecological context — what this means for pollination, predation, and habitat connectivity</li>
 </ul>
-<p>The data from the study can be found here: <a href="https://datadryad.org/dataset/doi:10.5061/dryad.v1885#citations">Dryad</a></p>
-<p><em>note</em>: One pre-visualization step I had to take to include all the information in the article was adding in coordinate information and light pollution bins/ their associated statuses (polluted or not polluted), as these were not directly provided in the data.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="bonnet-draft-infographic.png" class="img-fluid figure-img" alt="Infographic describing a study on ermine moth populations. A map of study sites categorizes light pollution bins and study site locations. A bar chart shows that moths are less attracted to light when historically exposed to light pollution, and that male moths are more mobile (show more attraction) than female moths. A donut plot shows that overall, a 12% decrease in light attraction was shown in polluted areas."></p>
-<figcaption>Infographic: Ermine moth populations that have evolved in light polluted areas show less attraction to light than in dark-sky areas.</figcaption>
-</figure>
+</section>
+<section id="data-processing" class="level1">
+<h1>Data Processing</h1>
+<p>One pre-visualization step I had to take to include all the information in the article was adding in coordinate information and light pollution bins/ their associated statuses (polluted or not polluted), as these were not directly provided in the data.</p>
+</section>
+<section id="takeaways" class="level1">
+<h1>Takeaways</h1>
+<p>I recreated the study results using the author’s data by summarizing the overall attraction behavior of all moth populations, then separating flight counts by sex.</p>
+<p>The results showed that moth populations exposed to light pollution across decades are less attracted to light than those living in dark-sky regions.</p>
+<p>Male moths are more attracted to light than female moths. This means that they’re more likely to fly towards light in an experimental environment. This is likely because male moths must actively locate female mates. This could potentially be also impacting reproduction rates, contributing to a broader pattern of pollination decline.</p>
+<p>Disruption of natural moth navigation can have impacts on pollination rates, decrease food availability for nocturnal predators, and worsen habitat fragmentation effects.</p>
+<p>To summarize these findings from my data exploration, I considered the following design elements:</p>
+</section>
+<section id="design-elements" class="level1">
+<h1>Design Elements</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Graphic Form</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Text</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Icons</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Themes</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Colors</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false" href="">Typography</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false" href="">Layout</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-8" role="tab" aria-controls="tabset-1-8" aria-selected="false" href="">Contextualizing Data</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-9-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-9" role="tab" aria-controls="tabset-1-9" aria-selected="false" href="">Centering the Main Message</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-10-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-10" role="tab" aria-controls="tabset-1-10" aria-selected="false" href="">Accessibility</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>In creating the final visual product, I considered <span class="citation" data-cites="cleveland1984graphical">(<a href="#ref-cleveland1984graphical" role="doc-biblioref">Cleveland and McGill 1984</a>)</span> hierarchy of elementary perceptual tasks, which describes how people most accurately estimate values when looking at the position of data across a common scale. I chose a bar plot for this reason to summarize the main finding of the study. I also wanted to use a map to spatially contextualize the distances between study cities. These fairly basic plots allowed me to add more illustrative elements without overwhelming readers. My goal was to highlight the negative effects of light pollution on a subset of pollinators for readers who may not have an entemology background.</p>
 </div>
-<p>My final infographic ended up using a bar chart that was very similar to the original one included in publication (but more thematic), a sneaky little donut plot (look for the moth’s proboscis), and a map showing the study site coordinates associated with the recorded radiance from the study against NASA’s Worldview night light imagery. I initially built the plots in R, then got crafty in Affinity Designer by Canva.</p>
-<section id="designing-the-infographic" class="level2">
-<h2 class="anchored" data-anchor-id="designing-the-infographic">Designing the Infographic</h2>
-<p>As someone with an artistic background, I wanted to use fairly simple data visualization techniques so I could add more illustrative elements without overcrowding the visuals. Although there are so many cool chart types, sometimes the most accessible are bar charts and maps. In reading the study, I was automatically interested in the bar chart showing a clear proportional difference between populations. This agrees with Warren’s hierarchy of visual processing, which asserts that human brains are better at processing height than other ways of representing data such as shade or area.</p>
-<p>Speaking of visual hierarchy, I wanted to integrate a night sky element into the visual without violating every possible rule of contrast, ink to data ratio, and whitespace (or darkspace in this case).</p>
-<p>One element that was tricky to integrate was simply background color. I wanted to make sure that plots had enough contrast to stand out, but not so much that you could barely see anything on a normal laptop screen. Thus, I played around with colors. A lot.</p>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Although I initially made text adjustments in R, I replaced all final text elements in Affinity at the end. Using Affinity allowed me to more quickly experiment with placements and typefaces.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>All icons used for visual interest were downloaded from the Noun Project. These vector icons I used are publicly accessible and made by the following artists.</p>
+<p><img src="noun-city-8301608.svg" class="img-fluid" width="160"> <img src="noun-city-skyline-6382565.svg" class="img-fluid" width="160"> <img src="noun-house-7520863.svg" class="img-fluid" width="160"> <img src="noun-house-8317270.svg" class="img-fluid" width="160"> <img src="noun-lantern-8314132.svg" class="img-fluid" width="160"> <img src="noun-street-light-120603.svg" class="img-fluid" width="160"> <img src="noun-street-light-120604.svg" class="img-fluid" width="160"></p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>I was going for an overall dark and modern theme. To do this I made certain color choices for contrast, and also removed or decreased the visual intensity of gridlines and labels to reduce noise in the final figure.</p>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p>When thinking about this infographic, I was motivated to use the natural colors from the spindle ermine moth and their associated plant: the European Spindle. I also wanted to use a night-sky color scheme for my background and lighting elements. My color palette ended up using a semi-illuminated grey blue to anchor all dark points to- as if you were looking at the night sky near a city. I also picked colors directly from these images of the ermine moth and plant. Using these colors, I also created my map radiance palette to fit the warm toned colors.</p>
+<p><img src="ermine-moth-image.jpg" class="img-fluid" width="300" alt="Ermine Moth with wings spread. Image from Earth.com. https://www.earth.com/news/how-ermine-moths-effortlessly-produce-ultrasonic-warning-sounds/"> <img src="european-spindle.jpg" class="img-fluid" width="300" alt="European Spindle Tree. Image from Woodland Trust. https://www.woodlandtrust.org.uk/trees-woods-and-wildlife/british-trees/a-z-of-british-trees/spindle/"></p>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p>With the dark color palette of my infographic, I wanted to minimize too much visual strain. I ended up using a sans-serif font called <strong>Manrope</strong> to get the job done, only changing the title text to distinguish it from the other text blocks.</p>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<p>I used streetlight and lantern icons as both a thematic anchor and a structural device. This aimed to group the population-level and sex-disaggregated data visualizations beneath them to reinforce the study’s core findings. Natural dividing lines between visual sections helped manage text without requiring heavy borders or boxes.</p>
+<p>Size and weight (bold text, larger headers) guide the reader’s eye through the infographic in a deliberate order: context → key finding → supporting detail.</p>
+</div>
+<div id="tabset-1-8" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-8-tab">
+<p>Adding enough context for general audience to access the results of a dense scientific study was difficult. I played around with technical wording, and ultimately cut some detail from the final infographic text that clouded the main takeaways.</p>
+</div>
+<div id="tabset-1-9" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-9-tab">
+<p>There were several things I did not understand from the study alone, so centering the primary takeaways around implications was more important than just interpreting the study results. I did this by trying to weave in connected topics such as plant pollination and other species interactions.</p>
+</div>
+<div id="tabset-1-10" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-10-tab">
+<p>Especially due to the dark nature of the infographic, I chose other colors to emphasize contrast, and also picked my color palette with the use of **Coolors.com*, where you can export a color palette and apply colorblind filters to it to test for shade difference.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="foundational-data-visualizations" class="level1">
+<h1>Foundational Data Visualizations</h1>
+<p>Considering the visual elements detailed above, I chose to build my infographic on these plots:</p>
 <section id="a-very-dark-map" class="level3">
-<h3 class="anchored" data-anchor-id="a-very-dark-map">a very dark map</h3>
-<p>This came into play in particular with my map, as my first attempt mapped plot study sites by their associated radiance measurement bin. I could not find a basemap that was on-theme and didn’t drown out the colors of the study site points. This is where I chose to map the exact coordinates of each study site to NASA’s Black Marble night light interactive map <span class="citation" data-cites="nasa_worldview">(<a href="#ref-nasa_worldview" role="doc-biblioref">NASA 2020</a>)</span>. This allowed me to go back in and place my radiance bins on the precise positions they were collected from while showing overall light pollution.</p>
+<h3 class="anchored" data-anchor-id="a-very-dark-map">A Very Dark Map</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="draft_map.png" class="img-fluid figure-img" alt="A dark colored map with colored points representing study site coordinates. The points are colored dark orange to light yellow to signify radiance. The study sites on the Swiss side of the map show greater light pollution (20 or more nanowatts per square centimeter per steradian)."></p>
+<p><img src="formatted-map.png" class="img-fluid figure-img" alt="A dark colored map with colored points representing study site coordinates. The points are colored dark orange to light yellow to signify radiance. The study sites on the Swiss side of the map show greater light pollution (20 or more nanowatts per square centimeter per steradian)."></p>
 <figcaption>Map of study sites between the border of France and Switzerland with their associated radiance binning measured in the study.</figcaption>
 </figure>
 </div>
-<p>I also wanted to add in the visual element of streetlights themselves to get the theme of the study across of the bat. I tried to use these to literally highlight the decreased light attraction of moths overall, as well as by sex by orienting these data representations under streetlight icons.</p>
-<p>As a scientific study, I also needed to contextualize the study and summarize results without crowding the infographic too much. I tried to use natural lines between visual elements to break up text, and used size + bolding to guide readers’ eyes to elements in a particular order.</p>
-<p>Due to this consideration, I experimented with fonts to achieve a clean readable appearance. I settled on <em>Lucida fax</em>, and used it across the entire info graphic apart from the monospaced noto sans text I kept for the number of the bar plot.</p>
+<p>My first map attempt plotted study sites colored by radiance bin — but no standard basemap felt thematically coherent without drowning out the point colors. The solution: I overlaid study site coordinates directly onto <strong>NASA’s Black Marble night light imagery</strong> <span class="citation" data-cites="nasa_worldview">(<a href="#ref-nasa_worldview" role="doc-biblioref">NASA 2020</a>)</span>, which provided a real-data dark basemap. This let me show actual light pollution context while placing the radiance bins precisely where they were measured.</p>
+</section>
+<section id="alluvial-flow-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="alluvial-flow-diagram">Alluvial Flow Diagram</h3>
+<p>I wanted to visualize overall reduced flight to a light source in a flow diagram to visually mimic a moth’s potential flight paths. I created a very simple alluvial diagram to do this. I changed design elements in Affinity to describe the moth population sources more intuitively, and included the lantern icon to emphasize the flight-to-light path.</p>
+</section>
+<section id="bar-chart" class="level3">
+<h3 class="anchored" data-anchor-id="bar-chart">Bar Chart</h3>
+<p>This bar chart is essentially a recreation of the study’s main figure with tweaks for interpretability.</p>
+<hr>
 </section>
 </section>
+<section id="final-product" class="level1">
+<h1>Final Product</h1>
+<p>All component plots were built in R, then assembled and refined in <strong>Affinity Designer by Canva</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="final_infographic.png" class="img-fluid figure-img" alt="Infographic describing a study on ermine moth populations. A map of study sites categorizes light pollution bins and study site locations. An alluvial flow diagram shows that a smaller proportion of moths from historically light-polluted areas fly towards a light source. A bar chart shows that male moths are more mobile (show more attraction) than female moths."></p>
+<figcaption>Infographic: Ermine moth populations that have evolved in light polluted areas show less attraction to light than in dark-sky areas.</figcaption>
+</figure>
+</div>
 <section id="initial-plot-code" class="level2">
 <h2 class="anchored" data-anchor-id="initial-plot-code">Initial Plot Code</h2>
-<p>All of these decisions culminated in the below is all the code that builds all the initial plots I used in R!</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -604,12 +682,37 @@ div.csl-indent {
 <span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>      ),</span>
 <span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>      </span>
 <span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>      )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pol_tot_sum <span class="sc">%&gt;%</span></span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>prop_attracted) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(total_attracted, total_not_attracted),</span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">'attraction'</span> ,</span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">'count'</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">attraction =</span> <span class="fu">recode_factor</span>(attraction, </span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">total_attracted =</span> <span class="st">"attracted"</span>, </span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">total_not_attracted =</span> <span class="st">"not attracted"</span>))</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>alluvial_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df,</span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">axis1 =</span> pollution_status, <span class="at">axis2 =</span> attraction, <span class="at">y =</span> count)) <span class="sc">+</span></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_alluvium</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pollution_status), <span class="at">width =</span> <span class="fl">0.3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stratum</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"stratum"</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(stratum)),</span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#868677"</span>, <span class="st">"#535459"</span>)) <span class="sc">+</span></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"Pollution Status"</span>, <span class="st">"Attraction"</span>),</span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>                   <span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Number of moths"</span>) <span class="sc">+</span></span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -618,6 +721,9 @@ Altermatt, Florian, and Dieter Ebert. 2016. <span>“Reduced Flight-to-Light Beh
 </div>
 <div id="ref-borges2016" class="csl-entry" role="listitem">
 Borges, R. M., H. Somanathan, and A. Kelber. 2016. <span>“Patterns and Processes in Nocturnal and Crepuscular Pollination Services.”</span> <em>The Quarterly Review of Biology</em> 91 (4): 389–418. <a href="https://doi.org/10.1086/689481">https://doi.org/10.1086/689481</a>.
+</div>
+<div id="ref-cleveland1984graphical" class="csl-entry" role="listitem">
+Cleveland, William S., and Robert McGill. 1984. <span>“Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods.”</span> <em>Journal of the American Statistical Association</em> 79 (387): 531–54. <a href="https://doi.org/10.1080/01621459.1984.10478080">https://doi.org/10.1080/01621459.1984.10478080</a>.
 </div>
 <div id="ref-macgregor2020" class="csl-entry" role="listitem">
 Macgregor, C. J., and A. S. Scott-Brown. 2020. <span>“Nocturnal Pollination: An Overlooked Ecosystem Service Vulnerable to Environmental Change.”</span> <em>Emerging Topics in Life Sciences</em> 4 (1): 19–32. <a href="https://doi.org/10.1042/ETLS20190134">https://doi.org/10.1042/ETLS20190134</a>.
@@ -628,11 +734,11 @@ NASA. 2020. <span>“NASA Worldview.”</span> <a href="https://worldview.earthd
 </div></section><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{bonnet2026,
   author = {Bonnet, Nathalie},
   title = {Flight-to-Light},
-  date = {2026-03-08},
+  date = {2026-03-17},
   langid = {en}
 }
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-bonnet2026" class="csl-entry quarto-appendix-citeas" role="listitem">
-Bonnet, Nathalie. 2026. <span>“Flight-to-Light.”</span> March 8, 2026.
+Bonnet, Nathalie. 2026. <span>“Flight-to-Light.”</span> March 17, 2026.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
