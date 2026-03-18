@@ -260,12 +260,12 @@ ggplot(light_pol_sf) +
   # Add labels
   labs(title = "Light Pollution at Sample Sites on the France-Switzerland Border",
        subtitle = "Greater Light Pollution at Swiss City Sites",
-       caption = "Data: Altermatt, Florian; Ebert, Dieter (2016),\n Reduced flight-to-light behaviour of moth populations exposed to long-term urban light pollution,\n Biology Letters, Article-journal, https://doi.org/10.1098/rsbl.2016.0111") +
+       caption = "Data: Altermatt & Dieter (2016)") +
   theme_light() +
   # Add legend title
   guides(fill = guide_legend(
     # Legend title
-    title = "Radiance\n(10–9 W sr–1 cm–2)"
+    title = expression(atop("Radiance", "(W sr"^-1~"cm"^-2*")"))
   )) +
   # Create custom theme
   theme(
@@ -335,7 +335,7 @@ ggplot(pol_sum, aes(x = pollution_status, y = prop_attracted, fill = sex)) +
   # Add labels
   labs(title = "Flight-to-Light Behavior in Ermine Moths", 
        subtitle = "Moths in light polluted areas show reduced attraction to light", 
-       caption = "Data: Altermatt & Dieter (2016)", 
+       caption = "Data: Altermatt & Dieter (2016)",
        y = "Proportion of moths attracted to light")+
   theme_minimal() +
   # Apply custom theme
@@ -412,25 +412,47 @@ pol_tot_sum <- light_pol %>%
     prop_attracted      = total_attracted / (total_attracted + total_not_attracted)
   ) 
 
-# Create stylized donut plot
-ggplot(pol_tot_sum, aes(x = 2, y = prop_attracted, fill = pollution_status)) +
-  geom_col(width = 1, color = "white") +
-  # Make a donut
-  coord_polar(theta = "y") +
-  # Hole size
-  xlim(0.01, 3) +
-  
-  # Remove all ticks and legend
-  theme_void()+
-  
-  # Add custom colors
-  scale_fill_manual(values = c("#FFF533", "#FFFCC2")) +
-  
-  # Add labels
-  labs(title = "Long-Term Urban Light Pollution Effect on Ermine Moths")+
-  
-  # Add theme
-    theme(
+
+# Create a pivoted data frame to summarize attraction trends
+df <- pol_tot_sum %>%
+  # Remove the proportion column
+  select(-prop_attracted) %>% 
+  pivot_longer(
+    # Pivot attracted and unattracted to one column called 'attraction'
+    cols = c(total_attracted, total_not_attracted),
+    names_to = 'attraction' ,
+    # Summarize all count values
+    values_to = 'count'
+  ) %>% 
+  # Recode for nicer plot output
+  mutate(attraction = recode_factor(attraction, 
+                                    total_attracted = "attracted", 
+                                    total_not_attracted = "not attracted"))
+
+# Create alluvial diagram using ggalluvial package
+alluvial_plot <- ggplot(df,
+  aes(axis1 = pollution_status, axis2 = attraction, y = count)) +
+  geom_alluvium(aes(fill = pollution_status), width = 0.3, alpha = 0.7) +
+  geom_stratum(width = 0.2, fill = "white", color = "grey60") +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum)),
+            size = 3.5) +
+  scale_fill_manual(values = c("#868677", "#535459")) +
+  scale_x_discrete(limits = c("Pollution Status", "Attraction"),
+                   expand = c(0.1, 0.1)) +
+  labs(y = "Number of moths") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  labs(title = "Proportion of Moths That Flew to Light", 
+       caption = "Data: Altermatt & Dieter (2016)",
+       subtitle = "a larger proportion of moths in light-polluted areas do not fly to light") +
+  theme(
+      # Move legend to the bottom of the plot
+      legend.position = "bottom", 
+      
+      # Remove axis title because it's redundant
+      axis.title.x = element_blank(), 
+      
+      # Background colors
       plot.background = element_rect(fill = "#242842"),
       panel.background = element_rect(fill = "#242842"),
       legend.background = element_rect(fill = "#242842"),
@@ -455,44 +477,36 @@ ggplot(pol_tot_sum, aes(x = 2, y = prop_attracted, fill = pollution_status)) +
         margin = margin(b = 8),
         color = "lightgrey"
       ),
-    
+      
+      # Axis titles
+      axis.title = element_text(
+        size = 15,
+        family = "noto_sans",
+        color = "lightgrey"
+      ), 
+      
+      # Axis labels
+      axis.text = element_text(
+        size = 15,
+        family = "noto_sans",
+        color = "lightgrey"
+      ),
+      
+      # Caption
+      plot.caption = element_text(
+        family = "noto_sans",
+        face = "italic",
+        size = 15,
+        color = "lightgrey"
+      ),
+      
       # Legend
       legend.text = element_text(
         size = 15,
         family = "noto_sans",
         color = "lightgrey"
       ),
-      
       legend.title = element_blank()
       )
-
-# Create a pivoted data frame to summarize attraction trends
-df <- pol_tot_sum %>%
-  # Remove the proportion column
-  select(-prop_attracted) %>% 
-  pivot_longer(
-    # Pivot attracted and unattracted to one column called 'attraction'
-    cols = c(total_attracted, total_not_attracted),
-    names_to = 'attraction' ,
-    # Summarize all count values
-    values_to = 'count'
-  ) %>% 
-  # Recode for nicer plot output
-  mutate(attraction = recode_factor(attraction, 
-                                    total_attracted = "attracted", 
-                                    total_not_attracted = "not attracted"))
-# Create alluvial diagram using ggalluvial package
-alluvial_plot <- ggplot(df,
-  aes(axis1 = pollution_status, axis2 = attraction, y = count)) +
-  geom_alluvium(aes(fill = pollution_status), width = 0.3, alpha = 0.7) +
-  geom_stratum(width = 0.2, fill = "white", color = "grey60") +
-  geom_text(stat = "stratum", aes(label = after_stat(stratum)),
-            size = 3.5) +
-  scale_fill_manual(values = c("#868677", "#535459")) +
-  scale_x_discrete(limits = c("Pollution Status", "Attraction"),
-                   expand = c(0.1, 0.1)) +
-  labs(y = "Number of moths") +
-  theme_minimal() +
-  theme(legend.position = "none")
 
 ```
