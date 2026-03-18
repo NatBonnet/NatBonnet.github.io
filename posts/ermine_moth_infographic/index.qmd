@@ -127,11 +127,12 @@ My first map attempt plotted study sites colored by radiance bin. The standard b
 I decided to overlay study site coordinates directly onto **NASA's Black Marble night light imagery** [@nasa_worldview], which provided a real-data dark basemap. This let me show actual light pollution context while placing the radiance bins precisely where they were measured.
 
 ### Alluvial Flow Diagram
+![Alluvial diagram showing reduced light attraction in moths from light polluted urban areas.](alluvial-plot.png){fig-alt="An alluvial diagram representing decreased flight behavior towards light in moths from light-polluted areas."}
 
 I wanted to visualize overall reduced flight to a light source in a flow diagram to visually mimic a moth's potential flight paths. I created a very simple alluvial diagram to do this. I changed design elements in Affinity to describe the moth population sources more intuitively, and included the lantern icon to emphasize the flight-to-light path.
 
 ### Bar Chart
-
+![Bar plot showing sex differences in ermine moth light attraction](bar-plot.png){fig-alt="A bar chart showing bars representing female and male moths light attraction behavior compared between light-polluted and non light-polluted areas. Moths in polluted areas show an overall decreased attraction to light, with the greatest difference being between males 17%."}
 This bar chart is essentially a recreation of the study's main figure with tweaks for interpretability. 
 
 # Final Infographic
