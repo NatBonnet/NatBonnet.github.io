@@ -1,5 +1,5 @@
 ---
-title: "Flight-to-Light"
+title: "Flight-to-Light Behavior in Ermine Moths"
 subtitle: "Moths in historically light-polluted areas are desensitized to light"
 format: html
 date: 2026-3-17
@@ -37,7 +37,7 @@ The elements of my final infographic aim to highlight the main findings of the s
 
 - Visualize how light-polluted vs. dark-sky moth populations differ in light attraction behavior
 - Highlight the sex-based differences in this response
-- Situate these findings in their broader ecological context — what this means for pollination, predation, and habitat connectivity
+- Situate these findings in their broader ecological context: what this means for pollination, predation, and habitat connectivity
 
 # Data Processing
 
@@ -60,7 +60,7 @@ To summarize these findings from my data exploration, I considered the following
 ::: panel-tabset
 ## Graphic Form
 
-In creating the final visual product, I considered [@cleveland1984graphical] hierarchy of elementary perceptual tasks, which describes how people most accurately estimate values when looking at the position of data across a common scale. I chose a bar plot for this reason to summarize the main finding of the study. I also wanted to use a map to spatially contextualize the distances between study cities. These fairly basic plots allowed me to add more illustrative elements without overwhelming readers. My goal was to highlight the negative effects of light pollution on a subset of pollinators for readers who may not have an entemology background. 
+In creating the final visual product, I considered the [@cleveland1984graphical] hierarchy of elementary perceptual tasks, which describes how people most accurately estimate values when looking at the position of data across a common scale. I chose a bar plot for this reason to summarize the main finding of the study. I also wanted to use a map to spatially contextualize the distances between study cities. These fairly basic plots allowed me to add more illustrative elements without overwhelming readers. My goal was to highlight the negative effects of light pollution on a subset of pollinators for readers who may not have an entemology background. 
 
 ## Text
 
@@ -110,7 +110,7 @@ There were several things I did not understand from the study alone, so centerin
 
 ## Accessibility
 
-Especially due to the dark nature of the infographic, I chose other colors to emphasize contrast, and also picked my color palette with the use of **Coolors.com*, where you can export a color palette and apply colorblind filters to it to test for shade difference. 
+Especially due to the dark nature of the infographic, I chose other colors to emphasize contrast, and also picked my color palette with the use of **Coolors.com**, where you can export a color palette and apply colorblind filters to it to test for shade difference. 
 
 :::
 
@@ -122,7 +122,9 @@ Considering the visual elements detailed above, I chose to build my infographic 
 
 ![Map of study sites between the border of France and Switzerland with their associated radiance binning measured in the study.](formatted-map.png){fig-alt="A dark colored map with colored points representing study site coordinates. The points are colored dark orange to light yellow to signify radiance. The study sites on the Swiss side of the map show greater light pollution (20 or more nanowatts per square centimeter per steradian)."}
 
-My first map attempt plotted study sites colored by radiance bin — but no standard basemap felt thematically coherent without drowning out the point colors. The solution: I overlaid study site coordinates directly onto **NASA's Black Marble night light imagery** [@nasa_worldview], which provided a real-data dark basemap. This let me show actual light pollution context while placing the radiance bins precisely where they were measured.
+My first map attempt plotted study sites colored by radiance bin. The standard basemaps I could access did not provide the overall light pollution trends I wanted to visualize. 
+
+I decided to overlay study site coordinates directly onto **NASA's Black Marble night light imagery** [@nasa_worldview], which provided a real-data dark basemap. This let me show actual light pollution context while placing the radiance bins precisely where they were measured.
 
 ### Alluvial Flow Diagram
 
@@ -132,15 +134,15 @@ I wanted to visualize overall reduced flight to a light source in a flow diagram
 
 This bar chart is essentially a recreation of the study's main figure with tweaks for interpretability. 
 
----
-
-# Final Product
+# Final Infographic
 
 All component plots were built in R, then assembled and refined in **Affinity Designer by Canva**.
 
 ![Infographic: Ermine moth populations that have evolved in light polluted areas show less attraction to light than in dark-sky areas.](final_infographic.png){fig-alt="Infographic describing a study on ermine moth populations. A map of study sites categorizes light pollution bins and study site locations. An alluvial flow diagram shows that a smaller proportion of moths from historically light-polluted areas fly towards a light source. A bar chart shows that male moths are more mobile (show more attraction) than female moths."}
 
-## Initial Plot Code
+# Initial Plot Code
+
+The code chunk below is the complete workflow from reading in the orgiginal dataset to achieving the plots I used in Affinity.
 
 
 ```{r}
@@ -158,6 +160,7 @@ library(sf)
 library(ggspatial)
 library(prettymapr)
 library(showtext)
+library(ggalluvial)
 
 # Add desired fonts
 font_add_google(name = "Noto Sans", family = "noto_sans")
@@ -408,7 +411,7 @@ pol_tot_sum <- light_pol %>%
     prop_attracted      = total_attracted / (total_attracted + total_not_attracted)
   ) 
 
-# Create donut plot
+# Create stylized donut plot
 ggplot(pol_tot_sum, aes(x = 2, y = prop_attracted, fill = pollution_status)) +
   geom_col(width = 1, color = "white") +
   # Make a donut
@@ -462,17 +465,22 @@ ggplot(pol_tot_sum, aes(x = 2, y = prop_attracted, fill = pollution_status)) +
       legend.title = element_blank()
       )
 
+# Create a pivoted data frame to summarize attraction trends
 df <- pol_tot_sum %>%
+  # Remove the proportion column
   select(-prop_attracted) %>% 
   pivot_longer(
+    # Pivot attracted and unattracted to one column called 'attraction'
     cols = c(total_attracted, total_not_attracted),
     names_to = 'attraction' ,
+    # Summarize all count values
     values_to = 'count'
   ) %>% 
+  # Recode for nicer plot output
   mutate(attraction = recode_factor(attraction, 
                                     total_attracted = "attracted", 
                                     total_not_attracted = "not attracted"))
-
+# Create alluvial diagram using ggalluvial package
 alluvial_plot <- ggplot(df,
   aes(axis1 = pollution_status, axis2 = attraction, y = count)) +
   geom_alluvium(aes(fill = pollution_status), width = 0.3, alpha = 0.7) +
