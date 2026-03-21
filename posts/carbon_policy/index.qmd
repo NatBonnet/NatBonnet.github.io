@@ -403,10 +403,6 @@ p2_data_OECD_HIC_UMC <- scm_data_OECD_HIC_UMC %>%
 p2_plot <- p2_data_OECD / p2_data_OECD_HIC/ p2_data_OECD_HIC_UMC
 p2_plot
 
-# Save the plot 
-#ggsave(filename = here::here("figs", "p2_plot_dif.png"), 
-       #plot = p2_plot)
-
 ```
 
 **Discussion**
@@ -478,9 +474,6 @@ p3_data_OECD_HIC_UMC <- scm_data_OECD_HIC_UMC %>%
 p3_plot <- p3_data_OECD / p3_data_OECD_HIC/ p3_data_OECD_HIC_UMC
 p3_plot
 
-# Save the plot 
-# ggsave(filename = here::here("figs", "p3_placebo_tests.png"), 
-       #plot = p3_plot)
 
 ```
 
