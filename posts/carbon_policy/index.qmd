@@ -3,6 +3,7 @@ title: "EDS 241- Using a Synthetic Control Method to Replicate a Study of Unilat
 author: "Nathalie Bonnet, Megan Hessel, Stephan Kadonoff"
 date: March 20 2026
 format: html
+code-fold: true
 warning: false
 error: false
 ---
@@ -106,6 +107,8 @@ We used the `tidysynth` package to generate our synthetic control UK, as compare
 
 ```{r}
 #| output: false
+#| code-fold: true
+
 library(tidysynth) # for synthetic control
 library(tidyverse)
 library(patchwork) # for combining plots
