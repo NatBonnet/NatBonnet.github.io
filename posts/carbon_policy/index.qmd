@@ -1,6 +1,6 @@
 ---
 title: "EDS 241- Using a Synthetic Control Method to Replicate a Study of Unilateral Climate Policy"
-author: "Nathalie Bonnet, Megan Hessel, Stephan Kadonoff"
+author: "Megan Hessel, Stephan Kadonoff"
 date: March 20 2026
 format: html
 warning: false
@@ -120,7 +120,7 @@ We sourced the original emissions datasets from 1. OECD countries (`OECD`), 2. h
 #| output: false
 
 # Source loading function to grab all .Rdata objects in files
-source(here("R", "load_rdata_files.R"))
+source(here("posts", "carbon_policy", "R", "load_rdata_files.R"))
 
 # Load in any .Rdata files in directory
 load_rdata_files()
@@ -363,7 +363,6 @@ The pre-treatment trends should hover around 0 CO2 emissions per capita displayi
 #| fig.asp: 1
 
 # Plotting the gaps of the SCM results with `plot_difference` for the 3 donor pools 
-
 # 1) data_OECD
 p2_data_OECD <- scm_data_OECD %>%
   plot_differences() +
@@ -532,8 +531,26 @@ scm_data_OECD_HIC_UMC %>%
 ```{r  synth-weights-plots}
 #| code-fold: true 
 
+# Modify tidysynth function to filter out negligible weights
+plot_weights_filtered <- function(data, min_weight = 0.01) {
+  grab_unit_weights(data, placebo = FALSE) %>%
+    dplyr::mutate(type = "Control Unit Weights (W)") %>%
+    dplyr::filter(weight >= min_weight) %>%
+    dplyr::arrange(weight) %>%
+    dplyr::mutate(unit = forcats::fct_reorder(unit, weight)) %>%
+    ggplot2::ggplot(ggplot2::aes(unit, weight, fill = type, color = type)) +
+    ggplot2::geom_col(show.legend = FALSE, alpha = 0.65) +
+    ggplot2::coord_flip() +
+    ggplot2::labs(x = "") +
+    ggplot2::facet_wrap(~type, ncol = 2, scales = "free") +
+    ggplot2::theme_minimal() +
+    ggplot2::scale_fill_manual(values = c("#b41e7c", "grey60")) +
+    ggplot2::scale_color_manual(values = c("#b41e7c", "grey60")) +
+    ggplot2::theme(text = ggplot2::element_text(size = 14))
+}
+
 # Ploting `scm_data_OECD_HIC_UMC` donor pool weights b/c closest similarity to paper's donor pool makeup
-plot_weights(scm_data_OECD_HIC_UMC) +
+plot_weights_filtered(scm_data_OECD_HIC_UMC) +
   labs(title = "OCED, HIC, and UMC Donor Pool Composition") +
   theme(plot.title = element_text(hjust = 0.5, size = 12),
     plot.subtitle = element_text(color = "grey50", hjust = 0.5))
