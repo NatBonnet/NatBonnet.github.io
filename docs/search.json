@@ -231,6 +231,13 @@
     "text": "References\n\nLiterature\nCalifornia yellowtail Amberjack seafood recommendation. Seafoodwatch.org. https://www.seafoodwatch.org/recommendation/amberjack/california-yellowtail-57716\nRotman, F., Stuart, K., Silbernagel, C., & Drawbridge, M. (2021). The status of California yellowtail Seriola dorsalis as a commercially ready species for marine U.S. aquaculture. Journal of the World Aquaculture Society, 52(3), 595–606. https://doi.org/10.1111/jwas.12808\nCalifornia Department of Fish and Wildlife. Yellowtail Enhanced Status Report. CA Marine Species Portal. https://marinespecies.wildlife.ca.gov/yellowtail/the-species/\nZhang, Z., Liu, H., Jin, J., Zhu, X., Han, D., & Xie, S. (2024). Towards a low-carbon footprint: Current status and Prospects for Aquaculture. Water Biology and Security, 3(4), 100290. https://doi.org/10.1016/j.watbs.2024.100290\n\n\nDatasets\nNOAA Coral Reef Watch. NOAA Coral Reef Watch Daily 5km satellite coral bleaching heat stress SST anomaly product (version 3.1). https://coralreefwatch.noaa.gov/product/5km/index_5km_ssta.php\nGridded bathymetry data. GEBCO. https://www.gebco.net/data-products/gridded-bathymetry-data#area\nEEZ boundaries. Marine regions. https://www.marineregions.org/eez.php"
   },
   {
+    "objectID": "media.html",
+    "href": "media.html",
+    "title": "Media",
+    "section": "",
+    "text": "I’ve had the chance to collaborate across disciplines with a couple of excellent writers who kindly featured my research in their articles.\nCheck them out here:\n\n\n\n\nBay Nature\nBees Are Heating Up. How Will They Cope?\nby Tanvi Dutta Gupta\nClimate change is coming for our most critical pollinators. Scientists are figuring out if our bees can handle the heat.\n\n\n\n\n\nEmergence Magazine\nTelling the Bees\nby Emily Polk\nBees have long been witness to human grief, carrying messages between the living and the dead. Finding solace in the company of bees, Emily Polk opens to the widening circles of loss and an enduring spirit of survival."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -238,39 +245,32 @@
     "text": "Salut! Here’s where you learn a little bit more about me"
   },
   {
-    "objectID": "about.html#my-background-ma-origine",
-    "href": "about.html#my-background-ma-origine",
+    "objectID": "about.html#my-studies",
+    "href": "about.html#my-studies",
     "title": "About",
-    "section": "My background / Ma origine",
-    "text": "My background / Ma origine\nI was born and raised in Denver, Colorado, where I learned there’s nothing better than the relationship you form to your natural environment. I attended an imersion school where I learned French, which comes surprisingly in handy as a second language. My many sports, cooking experiments, and creative hobbies I have collected over the years have led me to consider myself somewhat of a jack of all trades, and I wouldn’t have it any other way."
+    "section": "My studies",
+    "text": "My studies\nI received my Bachelor’s in Aquatic Biology from the University of California, Santa Barbara. During my undergraduate studies, I was lucky enough to work as a research assistant at the Cheadle Center for Biodiversity & Ecological Restoration.\nI participated in several projects that developed my interest in ecological research and data analysis. I got some early insight into machine learning leading a group of Photoshop interns in creating training data to model bee hairiness as an indicator of thermal tolerance.\nFrom here, I wanted some field experience, and was able to get up close and personal with female Carpenter bees (Xylocopa tabaniformis) to study their exocrine signaling and sociality.\nWith the support of my advisors, I completed two seasons of field collections for an independent research project investigating thermal tolerance across an array of Santa Barbara bee genera. I explored the preliminary outcomes of these data using a gamma generalized linear model and wrote a little blog post about it. I am currently preparing the analysis for publication, which is very exciting as there is a definitive lack of thermal tolerance research in bees, particularly solitary bees. My experience in the field and lab taught me that to be an ecologist, you must first be a data scientist! This led to to where I currently am, in my third quarter of UCSB’s Bren School Master of Environmental Data Science program."
   },
   {
-    "objectID": "about.html#my-studies-mes-études",
-    "href": "about.html#my-studies-mes-études",
+    "objectID": "about.html#my-work",
+    "href": "about.html#my-work",
     "title": "About",
-    "section": "My studies / Mes études",
-    "text": "My studies / Mes études\nI recieved my Bachelor’s in Aquatic Biology from the University of California, Santa Barbara. During my undergraduate studies, I was lucky enough to work as a research assistant at the Cheadle Center for Biodiversity & Ecological Restoration.\nI participated in several projects that developed my interest in ecological research and data analysis. I got some early insight into machine learning leading a group of photoshop interns in creating training data to model bee hairiness as an indicator of thermal tolerance.\nFrom here, I wanted some field experience, and was able to get up close and personal with female Carpenter bees (Xylocopa tabaniformis) to study their exocrine signaling and sociality.\nWith the support of my advisors, I completed two seasons of field collections for an independent research project investigating thermal tolerance across an array of Santa Barbara bee genera. I explored the preliminary outcomes of these data using a gamma generalized linear model and wrote a little blog post about it. My experience in the field and lab taught me that to be an ecologist, you must first be a data scientist! This led to to where I currently am, in my third quarter of UCSB’s Bren School Master of Environmental Data Science program.\nMy coursework from Fall is highlighted in my blog! Thus far, my favorite topic we have touched on is geospatial analysis. I am interested in visualizing large scale processes, particularly over time."
+    "section": "My work",
+    "text": "My work\nMy studies, research, and life experience have taught me thus far that everything goes a lot smoother when you have good information about your information. I got the wonderful opportunity to do a data science internship with the National Center for Ecological Analysis and Synthesis in June, 2025. In my role with the Arctic Data Center team, I help process incoming datasets from all areas of research pertaining to the Arctic to make metadata open, accessible, and reproducible. I am currently working on a larger project to make large datasets accessible without expensive computing resources by using VirtualiZarr. This is of great significance to me as someone who is interested in working on climate change as the Arctic is warming more rapidly than anywhere else on Earth."
   },
   {
-    "objectID": "about.html#my-work-mon-métier",
-    "href": "about.html#my-work-mon-métier",
+    "objectID": "about.html#when-i-touch-grass",
+    "href": "about.html#when-i-touch-grass",
     "title": "About",
-    "section": "My work / Mon métier",
-    "text": "My work / Mon métier\nMy studies, research, and life experience have taught me thus far that everything goes a lot smoother when you have good information about your information. I started my dream internship with the National Center for Ecological Analysis and Synthesis in June, 2025. In my role as a data intern with the Arctic Data Center team, I help process incoming datasets from all areas of research pertaining to the Arctic to make metadata open, accessible, and reproducible. This is of great significance to me as someone who is interested in working on climate change as the Arctic is warming more rapidly than anywhere else on Earth. I have learned a lot in this role about all things data science, and am grateful for the continued opportunity to grow."
-  },
-  {
-    "objectID": "about.html#outside-pour-samuser",
-    "href": "about.html#outside-pour-samuser",
-    "title": "About",
-    "section": "Outside / Pour s’amuser",
-    "text": "Outside / Pour s’amuser\nBeing a Masters student and intern keeps me quite busy, but I somehow find time to get outside and pursue my hobbies off the computer. Going to UCSB afforded me the greatest blessing of all time: living between the mountains and the ocean. I’ve gotten comfortable riding my 8’0 funboard, and go skiing at Mammoth Mountain or Tahoe whenever I get the chance. I have discovered that grad school is a wonderful time to get into knitting, and have started my first big project! Find me on Ravelry."
+    "section": "When I Touch Grass",
+    "text": "When I Touch Grass\nSometimes I abandon my computer to pursue my hobbies! Going to UCSB afforded me the gift of access to the ocean and the mountains. I’ve gotten comfortable riding my 8’0 funboard, and go skiing at Mammoth Mountain or Tahoe whenever I get the chance. I found out this past year that grad school is a good time to get into knitting, and have started my first big project! Find me on Ravelry."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Nathalie Bonnet",
     "section": "",
-    "text": "Hi there! I’m Nathalie Bonnet (silent h, pronounced like Bo-nay. C’est français!). I am an environmental data scientist-in-training at UCSB’s Bren School of Environmental Science and Management. I feels equally at home in the field studying pollinators and wrangling metadata in R. Beyond the keyboard, you can usually find me chasing sunshine on a trail, bike, or surfboard!"
+    "text": "Hi there! I’m Nathalie Bonnet (silent h, pronounced like Bo-nay). I am a recent graduate from the Master’s of Environmental Data Science at UCSB’s Bren School of Environmental Science and Management, and am currently working as a data scientist at the National Center for Ecological Analysis and Synthesis in Santa Barbara! Beyond the keyboard, you can usually find me chasing sunshine on a trail, bike, or surfboard."
   },
   {
     "objectID": "posts/carbon_policy/index.html",

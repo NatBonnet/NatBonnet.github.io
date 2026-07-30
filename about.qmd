@@ -4,26 +4,21 @@ format: html
 ---
 Salut! Here's where you learn a little bit more about me
 
-## My background / Ma origine
-I was born and raised in Denver, Colorado, where I learned there's nothing better than the relationship you form to your natural environment. I attended an imersion school where I learned French, which comes surprisingly in handy as a second language. My many sports, cooking experiments, and creative hobbies I have collected over the years have led me to consider myself somewhat of a jack of all trades, and I wouldn't have it any other way. 
+## My studies
+I received my Bachelor's in Aquatic Biology from the University of California, Santa Barbara. During my undergraduate studies, I was lucky enough to work as a research assistant at the [Cheadle Center for Biodiversity & Ecological Restoration](https://ccber.ucsb.edu/).
 
-
-## My studies / Mes études
-I recieved my Bachelor's in Aquatic Biology from the University of California, Santa Barbara. During my undergraduate studies, I was lucky enough to work as a research assistant at the [Cheadle Center for Biodiversity & Ecological Restoration](https://ccber.ucsb.edu/).
-
-I participated in several projects that developed my interest in ecological research and data analysis. I got some early insight into machine learning leading a group of photoshop interns in creating training data to model bee hairiness as an indicator of thermal tolerance. 
+I participated in several projects that developed my interest in ecological research and data analysis. I got some early insight into machine learning leading a group of Photoshop interns in creating training data to model bee hairiness as an indicator of thermal tolerance. 
 
 From here, I wanted some field experience, and was able to get up close and personal with female Carpenter bees (*Xylocopa tabaniformis*) to study their exocrine signaling and sociality.
 
-With the support of my advisors, I completed two seasons of field collections for an independent research project investigating thermal tolerance across an array of Santa Barbara bee genera. I explored the preliminary outcomes of these data using a gamma generalized linear model and wrote a little [blog post](https://natbonnet.github.io/posts/stats_model/stats_model.html) about it. My experience in the field and lab taught me that to be an ecologist, you must first be a data scientist! This led to to where I currently am, in my third quarter of UCSB's Bren School [Master of Environmental Data Science](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) program. 
+With the support of my advisors, I completed two seasons of field collections for an independent research project investigating thermal tolerance across an array of Santa Barbara bee genera. I explored the preliminary outcomes of these data using a gamma generalized linear model and wrote a little [blog post](https://natbonnet.github.io/posts/stats_model/stats_model.html) about it. I am currently preparing the analysis for publication, which is very exciting as there is a definitive [lack of thermal tolerance research in bees](https://www.sciencedirect.com/science/article/pii/S0306456526001713), particularly solitary bees. My experience in the field and lab taught me that to be an ecologist, you must first be a data scientist! This led to to where I currently am, in my third quarter of UCSB's Bren School [Master of Environmental Data Science](https://bren.ucsb.edu/masters-programs/master-environmental-data-science) program. 
 
-My coursework from Fall is highlighted in my [blog](https://natbonnet.github.io/posts.html)! Thus far, my favorite topic we have touched on is geospatial analysis. I am interested in visualizing large scale processes, particularly over time.
 
-## My work / Mon métier
-My studies, research, and life experience have taught me thus far that everything goes a lot smoother when you have good information about your information. I started my dream internship with the [National Center for Ecological Analysis and Synthesis](https://www.nceas.ucsb.edu/) in June, 2025. In my role as a data intern with the [Arctic Data Center](https://arcticdata.io/team/) team, I help process incoming datasets from all areas of research pertaining to the Arctic to make metadata open, accessible, and reproducible. This is of great significance to me as someone who is interested in working on climate change as the Arctic is warming more rapidly than anywhere else on Earth. I have learned a lot in this role about all things data science, and am grateful for the continued opportunity to grow. 
+## My work 
+My studies, research, and life experience have taught me thus far that everything goes a lot smoother when you have good information about your information. I got the wonderful opportunity to do a data science internship with the [National Center for Ecological Analysis and Synthesis](https://www.nceas.ucsb.edu/) in June, 2025. In my role with the [Arctic Data Center](https://arcticdata.io/team/) team, I help process incoming datasets from all areas of research pertaining to the Arctic to make metadata open, accessible, and reproducible. I am currently working on a larger project to make large datasets accessible without expensive computing resources by using `VirtualiZarr`. This is of great significance to me as someone who is interested in working on climate change as the Arctic is warming more rapidly than anywhere else on Earth. 
 
-## Outside / Pour s'amuser
-Being a Masters student and intern keeps me quite busy, but I somehow find time to get outside and pursue my hobbies off the computer. Going to UCSB afforded me the greatest blessing of all time: living between the mountains and the ocean. I've gotten comfortable riding my 8'0 funboard, and go skiing at Mammoth Mountain or Tahoe whenever I get the chance. I have discovered that grad school is a wonderful time to get into knitting, and have started my first big project! Find me on [Ravelry](https://www.ravelry.com/people/Nattybonne). 
+## When I Touch Grass 
+Sometimes I abandon my computer to pursue my hobbies! Going to UCSB afforded me the gift of access to the ocean and the mountains. I've gotten comfortable riding my 8'0 funboard, and go skiing at Mammoth Mountain or Tahoe whenever I get the chance. I found out this past year that grad school is a good time to get into knitting, and have started my first big project! Find me on [Ravelry](https://www.ravelry.com/people/Nattybonne). 
 
 
 
